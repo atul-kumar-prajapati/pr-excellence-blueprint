@@ -1,61 +1,44 @@
 # Plan: Preparing the Raising Great PRs Session Materials
 
-**Status:** Draft — depends on the spec in `docs/specs/raising-great-prs-session.md` being approved.
+**Status:** In progress — follows `docs/specs/raising-great-prs-session.md`.
+
+Everything ships as one web app: slides, presenter notes, lab PR pages and handouts. Participants open the same link remotely.
 
 ## Build order
 
-The order follows dependencies: the template and the merge confidence scale are referenced by everything else, and the lab PRs feed the principles, the AI demo and the slides.
+| Phase | What | Done when |
+|---|---|---|
+| 1. Content foundations | PR template, reviewer checklist, merge confidence scale (as data the app renders and copies) | Template has no client names; scale is identical everywhere it appears. |
+| 2. Lab content | PR A and PR B diffs, descriptions, planted issues with answer keys, timed hints | Each PR is 150–250 changed lines; every planted issue has severity, theme, stakeholder and "why it matters". |
+| 3. App shell | Vite + React + TypeScript + Tailwind + shadcn/ui; agenda bar, segment timer, keyboard navigation, presenter notes | Can click or arrow through all 8 segments with notes. |
+| 4. Slides | Content for all 8 segments, including the 5,000-line story, quality bar, stakeholder clusters, anatomy, principles, AI segment, commitments | Every segment has slides and presenter notes. |
+| 5. Lab pages | PR page with files changed, click-to-log findings, top 3, score, reveal expert review | A group can complete the worksheet and compare against the key. |
+| 6. Handouts | Template, checklist, scale and Codex prompts with copy buttons | Each handout copies as clean Markdown. |
+| 7. Verify | Build, lint, click through every slide and both labs on desktop and laptop widths | No broken slide; lab works end to end. |
 
-| Phase | Deliverables | Depends on | Review gate |
-|---|---|---|---|
-| 1. Foundations | D6 PR template, D7 reviewer checklist, D8 merge confidence scale | Spec approved | You approve the template and scale wording. |
-| 2. Lab | D9 sandbox repo, PR A, PR B, worksheet, answer key | Phase 1 | Pilot with one engineer who hasn't seen the PRs; second senior checks the answer key. |
-| 3. Story and content | D3 scenario, D4 quality bar, D5 stakeholder map, D10 principles poster | Phases 1–2 | You review for tone and accuracy. |
-| 4. AI demo | D11 prompts, demo script, captured fallback outputs | Phases 1–2 | Demo runs end to end against PR B. |
-| 5. Delivery | D1 facilitator guide, D2 slide deck | Phases 1–4 | Full timed dry run. |
-| 6. Follow-up | D12 commitment card, follow-up pack, baseline numbers | Phases 1–5 | Ready to send on session day. |
-
-## Proposed repo layout
+## Repo layout
 
 ```
-docs/
-  specs/raising-great-prs-session.md
-  plans/raising-great-prs-session-plan.md
-session/
-  facilitator-guide.md
-  slides.md
-  handouts/
-    pr-template.md
-    reviewer-checklist.md
-    merge-confidence-scale.md
-    stakeholder-map.md
-    quality-bar.md
-    lab-worksheet.md
-    commitment-card.md
-  ai-demo/
-    prompts.md
-    demo-script.md
-    fallback-outputs/
-  lab/
-    answer-key-pr-a.md
-    answer-key-pr-b.md
-lab-repo/            # sandbox Spring Boot service (or a separate repo, see open questions)
+docs/specs/   docs/plans/
+src/
+  content/    # session content as typed data: slides, notes, template, checklist, scale, lab PRs, prompts
+  components/ # slide renderers, PR diff viewer, timer, agenda bar
+  pages/      # deck, lab, handouts
 ```
+
+Keeping content in `src/content/` means wording changes don't touch layout code.
 
 ## Verification
 
-- **Timing:** one full dry run against a stopwatch; any segment more than 2 minutes over gets trimmed using the facilitator guide's "cut this" notes.
-- **Lab difficulty:** pilot reviewer finds at least half the planted issues in 10 minutes; if they find all of them, PR B is too obvious.
-- **Answer key:** a second senior engineer independently ranks the issues; disagreements are resolved before the session.
-- **AI demo:** run it twice on different days to make sure the output is stable enough to present; keep the captured fallback.
-- **Consistency check:** the three themes, the merge confidence scale and the template section names are spelled the same in every artifact.
+- **Timing:** dry run with the in-app timers; trim using the presenter notes' "if running late" lines.
+- **Lab difficulty:** ask one person who hasn't seen the PRs to try PR B for 10 minutes; they should find about half the planted issues.
+- **AI demo:** run the three Codex prompts against PR B before the session; paste the best output into the fallback panel.
 
 ## Risks
 
 | Risk | Mitigation |
 |---|---|
-| Lab overruns because participants spend time setting up | PRs are reviewed in the browser; no local build needed. |
-| AI demo is slow or gives a poor result live | Captured fallback outputs; treat a poor result as a teaching moment. |
-| 14 stakeholders don't fit in 8 minutes | Present in 5 clusters; go deep on 3. |
-| PR B is too subtle and nobody finds the IDOR | Helper drops a hint at the 7-minute mark. |
-| Template feels like extra bureaucracy | Show it as replacing the reviewer's questions, not adding to the author's work. |
+| Architects find PR A trivial | Use PR A only as a 2-minute warm-up for them, or give both groups PR B and compare rankings. |
+| Remote groups get stuck | Timed hints in the lab page. |
+| Live AI demo is slow or poor | Saved fallback output; a poor result becomes the teaching point. |
+| Content edits close to the session | All wording lives in `src/content/`. |

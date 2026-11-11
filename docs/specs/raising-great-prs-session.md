@@ -1,39 +1,47 @@
 # Spec: Raising Great PRs — Session Materials
 
-**Status:** Draft — awaiting review of assumptions and open questions
+**Status:** Decisions confirmed — building
 **Session length:** 90 minutes
 **Outcome:** By the end of the session, every engineer can raise an AI-assisted PR that's easy to review, safe to merge, and ready to release with confidence.
 
 ---
 
-## 1. Assumptions (confirm or correct before planning is locked)
+## 1. Decisions
 
-| # | Assumption | If wrong, what changes |
+| # | Decision | Consequence for the materials |
 |---|---|---|
-| A1 | Audience is 10–20 in-house engineers, mostly backend Java/Spring, mixed seniority. | Group sizes, lab PR difficulty, stakeholder examples. |
-| A2 | Session is in person with a projector; laptops available for the lab. | Remote needs breakout rooms, online worksheet, no printouts. |
-| A3 | The lab runs on **real PRs in a small sandbox Spring Boot repo**, not printed diffs. | Printed diffs are cheaper to build but lose realism and can't be reused for the AI demo. |
-| A4 | The AI demo uses the AI coding tool the team already uses day to day. | Demo script and prompts are tool-specific. |
-| A5 | The in-house PR template is derived from the client template, with client-specific items (Jira key, `ProblemDetail`, `siteCode`, `LogText`) replaced by generic equivalents. | If the team has its own conventions, the stack-specific checklist uses those. |
-| A6 | Slides are Markdown-based (e.g. Marp) so they live in this repo and can be reviewed like code. | If the team uses Google Slides or PowerPoint, slides are built there and only the source notes live here. |
-| A7 | One lead facilitator, plus one helper to float between lab groups. | Solo facilitation needs a tighter lab brief and printed instructions. |
-| A8 | The 14 stakeholders are presented in **5 clusters** so the 8-minute segment stays discussable. | Presenting all 14 individually needs about 15 minutes. |
+| D-1 | **Audience:** first run is 20+ veteran architects; later runs are mixed junior to senior. | The first run doubles as a review of the standard. PR B must be subtle enough to challenge architects; PR A stays as the warm-up for mixed groups. The lab focuses on ranking and the merge decision, not just spotting issues. |
+| D-2 | **Format:** remote or hybrid. | No printouts. Everything participants touch is a link: lab PRs, worksheet, handouts. Groups work in breakout rooms with an on-screen timer and built-in hints. |
+| D-3 | **Content scope:** PRs in general, with concrete Java/Spring Boot examples on the backend and the frontend impact of backend changes. | Lab PRs are Spring Boot. Stakeholder and anatomy examples include the frontend view of API changes. |
+| D-4 | **Lab domain:** a movie ticket booking service ("CineBook"). | Familiar to everyone. Naturally contains seat double-booking (concurrency), payments (idempotency), promo codes (money arithmetic), customer data (privacy) and a public API used by web and mobile apps. |
+| D-5 | **Lab medium:** realistic PR pages (description, files changed, inline findings) inside the session web app. | Works remotely with no repository access or local build. A real sandbox repository can follow later. |
+| D-6 | **AI tool:** OpenAI Codex. | Prompts are written for Codex but kept tool-agnostic so they work in other assistants. |
+| D-7 | **Slides:** a dynamic HTML web app instead of a static deck. | The app contains the slides, presenter notes, segment timers, the lab and the handouts. |
+| D-8 | **Stack-specific checks:** generic Spring Boot. | No client names or conventions anywhere. |
+| D-9 | **Facilitation:** solo. | Presenter notes are built into the app; the lab has timed hints so breakout groups aren't blocked. |
+| D-10 | **Ticketing:** no Jira internally. | The template uses a generic "Ticket / issue" field that accepts any link, or "None — reason". |
+| D-11 | **Pre-read and baseline:** not needed for the first run. | Dropped from scope; can be added for later runs. |
+| D-12 | **Stakeholders:** 14 roles shown in 5 clusters, going deep on 3. | Fits the 8-minute slot. |
+| D-13 | **Timeline:** session in about 24 hours. | Priority is a complete, runnable session app; polish comes second. |
 
 ## 2. Scope
 
 **In scope:** everything a facilitator needs to run the session as laid out in the agreed agenda, plus a short follow-up pack.
 
-**Out of scope:** CI pipeline changes, enforcing the template across repos, building AI tooling, measuring team metrics beyond a simple baseline.
+**Out of scope:** CI pipeline changes, enforcing the template across repos, building AI tooling, measuring team metrics.
 
 ## 3. Deliverables and acceptance criteria
 
-### D1. Facilitator guide
-Minute-by-minute run sheet for all 8 segments.
+### D1. Facilitator guide (presenter notes in the app)
+Minute-by-minute run sheet for all 8 segments, shown as presenter notes beside each slide.
 - Each segment lists: goal, what I say (talking points, not a script), what participants do, questions to ask, expected answers, the takeaway line, and a time cue for when to move on.
 - Includes a "if running late, cut this" note per segment.
 - **Accepted when** a second facilitator could run the session from it without asking questions.
 
-### D2. Slide deck
+### D2. Session web app (slides)
+- A web app with keyboard navigation, an agenda bar showing which segment is live, a countdown for each segment, and a presenter-notes toggle.
+- Interactive pieces where they help: flip-able stakeholder cards, the lab PR pages, copy buttons for the template and AI prompts, and a commitment card.
+- Works on a shared screen and on participants' own laptops (remote).
 - One title slide plus no more than 3 slides per 5 minutes of talk time (target ≤ 25 slides).
 - Opens with the outcome; closes with commitments and next steps.
 - Uses the same three themes (intent clarity, merge confidence, release certainty) wherever they appear.
@@ -69,11 +77,12 @@ Minute-by-minute run sheet for all 8 segments.
 - **Accepted when** the same scale is used unchanged in the lab, the AI demo and the template.
 
 ### D9. Lab materials (35–57 min)
-- **Sandbox repo:** a small Spring Boot service (orders/discounts domain) that builds and passes its own tests on `main`.
-- **PR A — obviously messy:** vague description, tests with no meaningful assertions, N+1 query, `BigDecimal.equals` comparison, dead code, no ticket link.
-- **PR B — looks clean, subtly broken:** good description and tidy code, but a backward-incompatible API field rename, `@Transactional` on a private method, customer email logged at INFO, missing ownership check (IDOR), retry around a non-idempotent payment call.
+- **PR pages in the app:** each looks like a real PR (title, description, files changed with line numbers) from the fictional CineBook Spring Boot service.
+- **PR A — obviously messy (promo codes):** vague description, no ticket, tests with no meaningful assertions, N+1 query, `BigDecimal.equals` comparison, swallowed exception, dead code, unrelated changes.
+- **PR B — looks clean, subtly broken (seat reservation refactor):** good description and tidy code, but a backward-incompatible API field rename with no linked frontend PR, `@Transactional` on a private method (seats can be double-booked), customer email logged at INFO, missing ownership check on booking lookup (IDOR), retry around a non-idempotent payment call, and a `NOT NULL` migration with no default.
 - Each PR is 150–250 changed lines.
-- **Lab worksheet:** columns for issue, theme, severity (blocker/major/nit), stakeholder hurt; top 3; merge confidence score with reason.
+- **Lab worksheet (built into the PR page):** participants click a line to log a finding with theme, severity (blocker/major/nit) and the stakeholder it hurts; pick a top 3; give a merge confidence score with a reason. Findings stay in the browser.
+- **Timed hints** appear for breakout groups at set points, since the facilitator can't be in every room.
 - **Expert answer key** per PR: every planted issue with severity, theme, stakeholder, why it matters, and the expected merge confidence score.
 - **Accepted when** a pilot reviewer (not the author) finds at least half the planted issues in 10 minutes, and a second senior engineer agrees with the answer key's rankings.
 
@@ -90,8 +99,7 @@ Minute-by-minute run sheet for all 8 segments.
 ### D12. Commitments and follow-up pack (80–90 min)
 - Commitment card: one change as an author, one as a reviewer.
 - Follow-up pack: final template, reviewer checklist, merge confidence scale, AI prompts, and a date for the check-in.
-- Simple baseline to compare against later: median PR size, time to first review, and rework (PRs needing more than one round of changes), if the data is available.
-- **Accepted when** the pack can be sent the same day as the session.
+- **Accepted when** the pack can be sent the same day as the session (the handouts page in the app is the pack).
 
 ## 4. Constraints
 
@@ -99,6 +107,7 @@ Minute-by-minute run sheet for all 8 segments.
 - All lab code must be fictional and contain no client code, names or data.
 - All materials live in this repo and are reviewed like code.
 
-## 5. Open questions
+## 5. Later (not for the first run)
 
-See the questions list shared alongside this spec; answers will update the assumptions table above.
+- A real sandbox repository with PR A and PR B opened as actual PRs.
+- A pre-read and baseline PR metrics for mixed-seniority runs.
