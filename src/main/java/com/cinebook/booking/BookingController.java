@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookingController {
 
     private final BookingService bookingService;
+    private final SeatReservationService seatReservationService;
 
     @PostMapping
     public ResponseEntity<BookingResponse> reserve(
             @RequestHeader("X-User-Id") Long userId, @Valid @RequestBody ReserveSeatsRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.reserve(userId, request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(seatReservationService.reserve(userId, request));
     }
 
     @GetMapping("/{bookingId}")
-    public BookingResponse get(
-            @RequestHeader("X-User-Id") Long userId, @PathVariable Long bookingId) {
-        return bookingService.findForUser(bookingId, userId);
+    public BookingResponse get(@PathVariable Long bookingId) {
+        return bookingService.findById(bookingId);
     }
 
     @GetMapping
