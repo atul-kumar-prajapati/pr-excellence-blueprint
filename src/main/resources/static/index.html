@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raising Great PRs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/session.css" />
+</head>
+<body>
+  <div class="frame">
+    <header class="topbar">
+      <a class="brand" href="#slide-1">Raising Great PRs</a>
+      <nav class="agenda" aria-label="Agenda">
+        <a href="#slide-1" data-segment="why">0–5 Why</a>
+        <a href="#slide-4" data-segment="great">5–12 Great</a>
+        <a href="#slide-6" data-segment="stakeholders">12–20 Who</a>
+        <a href="#slide-8" data-segment="anatomy">20–35 Anatomy</a>
+        <a href="#slide-13" data-segment="lab">35–57 Lab</a>
+        <a href="#slide-16" data-segment="principles">57–65 Principles</a>
+        <a href="#slide-17" data-segment="ai">65–80 AI</a>
+        <a href="#slide-19" data-segment="commitments">80–90 Close</a>
+      </nav>
+      <div class="clock" id="clock">00:00 / 90:00</div>
+      <button class="btn" id="toggle-clock">Start</button>
+    </header>
+    <div class="progress"><span id="progress-bar"></span></div>
+
+    <div class="layout">
+      <main class="stage">
+
+        <section class="slide" data-segment="why">
+          <p class="kicker">90-minute session</p>
+          <h1>Raising Great PRs</h1>
+          <p class="lead">By the end of the session, every engineer can raise an AI-assisted PR that's easy to review, safe to merge, and ready to release with confidence.</p>
+          <p>
+            <span class="pill intent">Intent clarity</span>
+            <span class="pill merge">Merge confidence</span>
+            <span class="pill release">Release certainty</span>
+          </p>
+          <p class="muted" style="margin-top:2rem">CineBook · a small Spring Boot booking API lives in this same repo. The lab is two real git branches.</p>
+          <div class="speaker-notes hidden">
+            <p>Read the outcome out loud. Point at the three themes — they run through the anatomy, the lab, the AI demo and the template.</p>
+          </div>
+        </section>
+
+        <section class="slide" data-segment="why">
+          <p class="kicker">The why</p>
+          <h1>Meet PR #4127</h1>
+          <div class="grid two">
+            <div class="card">
+              <p class="muted mono">feature/booking-v2 → main</p>
+              <p class="stat"><span class="ok">+4,812</span> <span class="danger">−1,206</span></p>
+              <p>63 files · open 9 days · 3 reviewers · 1 “LGTM”</p>
+            </div>
+            <ol class="timeline">
+              <li><span class="mono gold">Mon</span><span>Opened: “Booking v2 + promo + misc fixes”.</span></li>
+              <li><span class="mono gold">Tue–Thu</span><span>Three people open it, scroll, close the tab. 38 of 41 comments are formatting.</span></li>
+              <li><span class="mono gold">Next Wed</span><span>Release pressure. Merged at 6:40 p.m.</span></li>
+              <li><span class="mono gold">Fri 19:15</span><span>Migration locks <em>bookings</em> for 14 minutes in the evening rush.</span></li>
+              <li><span class="mono gold">Fri 19:22</span><span>Support hears from customers. On-call hears from support.</span></li>
+            </ol>
+          </div>
+          <div class="grid three" style="margin-top:1rem">
+            <div class="card dark">How long would it take you to review this properly?</div>
+            <div class="card dark">Which parts would you actually read?</div>
+            <div class="card dark">Would you put your name on that approval?</div>
+          </div>
+          <div class="speaker-notes hidden"><p>Tell it as a story. Pause on LGTM and on “found out from customers”.</p></div>
+        </section>
+
+        <section class="slide" data-segment="why">
+          <p class="kicker">The why</p>
+          <h1>A big, unclear PR doesn’t save time. It moves the risk.</h1>
+          <div class="grid three">
+            <div class="card"><h2>Review friction</h2><p>Big PRs wait. People postpone them, skim them, then approve under pressure.</p></div>
+            <div class="card"><h2>Hidden risk</h2><p>The dangerous five lines hide among five thousand. Nobody sees the migration for the formatting.</p></div>
+            <div class="card"><h2>Cognitive load</h2><p>Nobody can hold 63 files in their head. Reviewers fall back to style because that’s all they can process.</p></div>
+          </div>
+          <p class="takeaway">The cost of a bad PR is paid by everyone except the person who raised it.</p>
+          <div class="speaker-notes hidden"><p>Name the three costs. Then move.</p></div>
+        </section>
+
+        <section class="slide" data-segment="great">
+          <p class="kicker">The quality bar</p>
+          <h1>A great PR makes the reviewer’s job easy and the release boring.</h1>
+          <div class="grid two">
+            <div class="card">
+              <p class="kicker">Must-haves</p>
+              <ul>
+                <li>One clear purpose</li>
+                <li>Small enough to review properly</li>
+                <li>Evidence for every claim</li>
+                <li>Tests that check behaviour, including failures</li>
+                <li>No security or data-integrity red flags</li>
+                <li>A way to roll back — including data</li>
+              </ul>
+            </div>
+            <div class="card">
+              <p class="kicker">Nice-to-haves</p>
+              <ul>
+                <li>Diagrams for complex flows</li>
+                <li>Performance numbers when the path isn’t hot</li>
+                <li>A polished commit history</li>
+                <li>Screenshots for UI changes</li>
+              </ul>
+              <p class="muted">Nice-to-haves never compensate for a missing must-have.</p>
+            </div>
+          </div>
+          <div class="speaker-notes hidden"><p>Each must-have maps to a section of the template.</p></div>
+        </section>
+
+        <section class="slide" data-segment="great">
+          <p class="kicker">Size is the first quality bar</p>
+          <h1>#4127 should have been four PRs</h1>
+          <div class="grid four">
+            <div class="card"><p class="muted mono">PR 1</p><h2>Refactor</h2><p>~300 lines. No behaviour change, proved by existing tests.</p></div>
+            <div class="card"><p class="muted mono">PR 2</p><h2>Additive migration</h2><p>~40 lines. New nullable columns. Old and new code both work.</p></div>
+            <div class="card"><p class="muted mono">PR 3</p><h2>Feature behind a flag</h2><p>~350 lines. Off by default. Tests and evidence.</p></div>
+            <div class="card"><p class="muted mono">PR 4</p><h2>Clean-up</h2><p>~120 lines. Remove the flag and tighten constraints.</p></div>
+          </div>
+          <p class="takeaway">If you can’t explain your PR in one sentence, it’s more than one PR.</p>
+          <div class="speaker-notes hidden"><p>Expand then contract is what makes the migration safe.</p></div>
+        </section>
+
+        <section class="slide" data-segment="stakeholders">
+          <p class="kicker">Who cares about your PR?</p>
+          <h1>Your reviewer is one reader out of fourteen</h1>
+          <p class="lead">Click a card. What does that person fear from a backend PR?</p>
+          <div class="grid five">
+            <div>
+              <p class="kicker">Business</p>
+              <div class="flip"><div class="inner"><div class="face"><strong>User</strong><small>What do they fear?</small></div><div class="face back">Charged wrong, lost seat, leaked data.<small>→ Test evidence</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>Product owner</strong><small>What do they fear?</small></div><div class="face back">It ships, but it isn’t what we agreed.<small>→ Why? + acceptance criteria</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>CEO</strong><small>What do they fear?</small></div><div class="face back">A security or privacy incident with our name on it.<small>→ Secrets, authz, PII</small></div></div></div>
+            </div>
+            <div>
+              <p class="kicker">Engineering</p>
+              <div class="flip"><div class="inner"><div class="face"><strong>Senior engineer</strong><small>What do they fear?</small></div><div class="face back">Asked to approve something they can’t verify.<small>→ Verification evidence</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>Architect</strong><small>What do they fear?</small></div><div class="face back">Boundaries and transactions quietly eroded.<small>→ Risks and trade-offs</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>Future developer</strong><small>What do they fear?</small></div><div class="face back">Two years on, nobody knows why.<small>→ Why? + ADR</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>Frontend engineer</strong><small>What do they fear?</small></div><div class="face back">The API changed under them in production.<small>→ Linked PRs, merge order</small></div></div></div>
+            </div>
+            <div>
+              <p class="kicker">Ops</p>
+              <div class="flip"><div class="inner"><div class="face"><strong>Tester</strong><small>What do they fear?</small></div><div class="face back">Only the happy path was tested.<small>→ Negative cases</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>Support</strong><small>What do they fear?</small></div><div class="face back">It breaks and the logs are useless.<small>→ Observability</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>SRE</strong><small>What do they fear?</small></div><div class="face back">Paged at 3 a.m. with no rollback.<small>→ Rollback including data</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>Release manager</strong><small>What do they fear?</small></div><div class="face back">Hidden deploy-order dependencies.<small>→ Linked PRs</small></div></div></div>
+            </div>
+            <div>
+              <p class="kicker">Data</p>
+              <div class="flip"><div class="inner"><div class="face"><strong>DBA / analytics</strong><small>What do they fear?</small></div><div class="face back">A migration locks a table, or reports break.<small>→ Compatibility</small></div></div></div>
+            </div>
+            <div>
+              <p class="kicker">Consumers</p>
+              <div class="flip"><div class="inner"><div class="face"><strong>Other teams / clients</strong><small>What do they fear?</small></div><div class="face back">Their integration breaks with no notice.<small>→ Affected consumers</small></div></div></div>
+              <div class="flip"><div class="inner"><div class="face"><strong>AI agent</strong><small>What do they fear?</small></div><div class="face back">Stale .md files, so it repeats old patterns.<small>→ Docs / AGENTS.md</small></div></div></div>
+            </div>
+          </div>
+          <div class="speaker-notes hidden"><p>Don’t flip them all. Ask the room which card to flip.</p></div>
+        </section>
+
+        <section class="slide" data-segment="stakeholders">
+          <p class="kicker">Three readers people forget</p>
+          <h1>Same backend PR, three very different questions</h1>
+          <div class="grid three">
+            <div class="card">
+              <h2>Frontend engineer</h2>
+              <p class="muted">“Did the contract change under me?”</p>
+              <div class="code bad"><header>Tidied naming</header><pre>- List&lt;String&gt; seatNumbers,
++ List&lt;String&gt; seats,</pre></div>
+            </div>
+            <div class="card">
+              <h2>SRE / on-call</h2>
+              <p class="muted">“If this pages me at 3 a.m., what do I do?”</p>
+              <div class="code good"><header>A rollback note that helps</header><pre>Rollback: disable flag booking.v2.
+Column stays nullable; no data rollback.</pre></div>
+            </div>
+            <div class="card">
+              <h2>AI agent</h2>
+              <p class="muted">“What are the rules here?”</p>
+              <div class="code"><header>AGENTS.md</header><pre>- Money: BigDecimal, HALF_EVEN, 2dp
+- Migrations: expand, then contract</pre></div>
+            </div>
+          </div>
+          <p class="takeaway">Your PR description is written for all of these people, not just the person who approves it.</p>
+          <div class="speaker-notes hidden"><p>The field rename is in lab PR B. Don’t spoil it yet.</p></div>
+        </section>
+
+        <section class="slide" data-segment="anatomy">
+          <p class="kicker">Anatomy of a great PR</p>
+          <h1>Meets the expectations — and shows the evidence that proves it.</h1>
+          <div class="grid three">
+            <div class="card"><span class="pill intent">1 · Intent</span><h2>What changed, and why?</h2><p>Title, ticket, What changed?, Why?</p></div>
+            <div class="card"><span class="pill merge">2 · Merge</span><h2>Is it correct, tested and safe?</h2><p>Verification, tests, checklist. Correctness, testing, maintainability, security.</p></div>
+            <div class="card"><span class="pill release">3 · Release</span><h2>Will it go out safely?</h2><p>Impact, linked PRs. Data integrity, compatibility, operability.</p></div>
+          </div>
+          <p class="takeaway">Every claim has evidence attached — or says honestly why it doesn’t.</p>
+          <div class="speaker-notes hidden"><p>Three questions every reader asks.</p></div>
+        </section>
+
+        <section class="slide" data-segment="anatomy">
+          <p class="kicker">Intent clarity</p>
+          <h1>What changed, and why — in one read</h1>
+          <div class="grid two">
+            <div class="code bad"><header>Before</header><pre>fix discount bug
+
+Fixed the discount issue. Tested locally.</pre></div>
+            <div class="code good"><header>After</header><pre>fix(pricing): round promo discounts to 2dp
+using HALF_EVEN (#231)
+
+Why: finance flagged totals like 212.0749999.
+Rule agreed with finance (FIN-12).
+Risk: Medium — checkout totals and invoices.
+No schema or API change.</pre></div>
+          </div>
+          <div class="speaker-notes hidden"><p>The risk line is the cheapest improvement most teams can make.</p></div>
+        </section>
+
+        <section class="slide" data-segment="anatomy">
+          <p class="kicker">Merge confidence</p>
+          <h1>Is it correct, tested and safe?</h1>
+          <div class="grid three">
+            <div>
+              <p>Tests that prove behaviour</p>
+              <div class="code bad"><header>Runs the code</header><pre>assertNotNull(result);</pre></div>
+              <div class="code good"><header>Proves the rule</header><pre>assertThat(result)
+  .isEqualByComparingTo("212.08");</pre></div>
+            </div>
+            <div>
+              <p>Security at the boundary</p>
+              <div class="code bad"><header>Any user, any booking</header><pre>return service.findById(id);</pre></div>
+              <div class="code good"><header>Ownership checked</header><pre>return service.findForUser(id, user.id());</pre></div>
+            </div>
+            <div>
+              <p>Nothing sensitive in logs</p>
+              <div class="code bad"><header>PII in INFO</header><pre>log.info("Booking for {} &lt;{}&gt;", name, email);</pre></div>
+              <div class="code good"><header>Identifiers only</header><pre>log.info("Booking {} for user {}", id, userId);</pre></div>
+            </div>
+          </div>
+          <p class="takeaway">“Not run, and why” and “Not tested, and why” are features, not confessions.</p>
+          <div class="speaker-notes hidden"><p>Spend time on honest gaps.</p></div>
+        </section>
+
+        <section class="slide" data-segment="anatomy">
+          <p class="kicker">Release certainty</p>
+          <h1>Will it go out safely — and come back safely?</h1>
+          <div class="grid three">
+            <div class="code bad"><header>Fails on existing rows</header><pre>ALTER TABLE booking
+  ADD COLUMN payment_reference
+  VARCHAR(64) NOT NULL;</pre></div>
+            <div class="code bad"><header>Breaks web and mobile</header><pre>- List&lt;String&gt; seatNumbers,
++ List&lt;String&gt; seats,</pre></div>
+            <div class="code bad"><header>Retry without idempotency</header><pre>paymentClient.charge(user, total);</pre></div>
+          </div>
+          <p class="takeaway">Reverting code doesn’t revert a migration, a renamed field or a double charge.</p>
+          <div class="speaker-notes hidden"><p>Expand-then-contract. Old and new code must both work during a rolling deploy.</p></div>
+        </section>
+
+        <section class="slide" data-segment="anatomy">
+          <p class="kicker">One yardstick</p>
+          <h1>Merge confidence score</h1>
+          <div class="grid two">
+            <div class="card">
+              <p><strong>5</strong> Merge now</p>
+              <p><strong>4</strong> Minor nits</p>
+              <p><strong>3</strong> Some risk, not blocking</p>
+              <p><strong>2</strong> Blocking issues</p>
+              <p><strong>1</strong> Rethink or split it</p>
+            </div>
+            <div class="card dark">
+              <p class="kicker">Gating rules</p>
+              <p>Any red on security, data integrity or rollback caps the score at 2.</p>
+              <p>A claim without evidence caps the score at 3.</p>
+              <p>An AI score is advisory. The human reviewer’s score is final.</p>
+            </div>
+          </div>
+          <div class="speaker-notes hidden"><p>The lab uses this exact scale in two minutes.</p></div>
+        </section>
+
+        <section class="slide" data-segment="lab">
+          <p class="kicker">Live PR review lab · 22 minutes</p>
+          <h1>Review a real Spring Boot PR. Rank. Decide.</h1>
+          <div class="grid two">
+            <div class="card">
+              <p class="kicker">Group A</p>
+              <h2>lab/pr-a-promo</h2>
+              <p>Promo codes on bookings. The description looks finished. The bugs need a careful read of money, tests and concurrency.</p>
+            </div>
+            <div class="card">
+              <p class="kicker">Group B</p>
+              <h2>lab/pr-b-reservation</h2>
+              <p>A tidy seat-reservation refactor. The template says “no behaviour change”. Read the deleted lines.</p>
+            </div>
+          </div>
+          <div class="code" style="margin-top:1rem">
+            <header>Review it as git, the way you would at work</header>
+            <pre>git fetch
+git checkout lab/pr-a-promo     # or lab/pr-b-reservation
+git diff main...HEAD
+./mvnw test                     # green tests are not the same as a safe PR</pre>
+          </div>
+          <p class="muted">Remote groups who only have the browser: the next two slides embed the important hunks. Click a line to log a finding.</p>
+          <div class="speaker-notes hidden">
+            <p>Split into two groups. All-architect room: give everyone PR B and compare rankings. Never cut the lab.</p>
+          </div>
+        </section>
+
+        <section class="slide" data-segment="lab">
+          <div id="lab-a">
+            <p class="kicker">Group A · Promo codes</p>
+            <h1>feat(promo): apply percentage codes at checkout</h1>
+            <p class="muted">Looks complete. Click a tinted line if you would comment on it.</p>
+            <div class="grid two">
+              <div>
+                <div class="code">
+                  <header>PromoService.java</header>
+<pre><span class="diff-line add" data-issue data-theme="merge" data-severity="blocker">+ double discounted = total.doubleValue() - (total.doubleValue() * p.getPercentOff() / 100);
++ BigDecimal newTotal = new BigDecimal(discounted);</span>
+<span class="diff-line add" data-issue data-theme="merge" data-severity="major">+ if (newTotal.equals(BigDecimal.ZERO)) { newTotal = BigDecimal.ONE; }</span>
+<span class="diff-line add" data-issue data-theme="release" data-severity="major">+ if (p.getUsedCount() &lt; p.getMaxUses()) { p.setUsedCount(p.getUsedCount() + 1); }</span>
+<span class="diff-line add" data-issue data-theme="release" data-severity="major">+ } catch (Exception e) { return total; }</span></pre>
+                </div>
+                <div class="code" style="margin-top:.6rem">
+                  <header>PromoServiceTest.java</header>
+<pre><span class="diff-line add" data-issue data-theme="merge" data-severity="major">+ assertNotNull(result);</span>
+<span class="diff-line add">+ // second test calls applyPromo and asserts nothing</span></pre>
+                </div>
+                <div class="code" style="margin-top:.6rem">
+                  <header>V2__promo_code.sql</header>
+<pre><span class="diff-line add" data-issue data-theme="release" data-severity="major">+ code VARCHAR(32) NOT NULL,   -- no UNIQUE</span></pre>
+                </div>
+              </div>
+              <div>
+                <div class="findings"></div>
+                <p class="score-readout muted">Your score: —</p>
+                <p>
+                  <button class="btn" data-score="1">1</button>
+                  <button class="btn" data-score="2">2</button>
+                  <button class="btn" data-score="3">3</button>
+                  <button class="btn" data-score="4">4</button>
+                  <button class="btn" data-score="5">5</button>
+                </p>
+                <button class="btn gold" data-reveal>Reveal expert review</button>
+                <div class="expert hidden card" style="margin-top:1rem"></div>
+              </div>
+            </div>
+          </div>
+          <div class="speaker-notes hidden"><p>Expert top 3: money via double, usage race, empty tests. Score 2.</p></div>
+        </section>
+
+        <section class="slide" data-segment="lab">
+          <div id="lab-b">
+            <p class="kicker">Group B · Seat reservation refactor</p>
+            <h1>refactor(booking): extract SeatReservationService</h1>
+            <p class="muted">The description says low risk, no behaviour change. Click a tinted line.</p>
+            <div class="grid two">
+              <div>
+                <div class="code">
+                  <header>SeatReservationService.java</header>
+<pre><span class="diff-line add" data-issue data-theme="merge" data-severity="major">+ log.info("Reserving seats {} for {} &lt;{}&gt;", ids, name, email);</span>
+<span class="diff-line add" data-issue data-theme="release" data-severity="blocker">+ @Transactional
++ private Booking holdSeats(...) {</span>
+<span class="diff-line del" data-issue data-theme="release" data-severity="major">- List&lt;Seat&gt; seats = seatRepository.findAllByIdForUpdate(ids);</span>
+<span class="diff-line add">+ List&lt;Seat&gt; seats = seatRepository.findAllById(ids);</span>
+<span class="diff-line del" data-issue data-theme="release" data-severity="blocker">- paymentClient.charge(userId, total, booking.idempotencyKey());</span>
+<span class="diff-line add">+ return paymentClient.charge(userId, total); // retried up to 3 times</span></pre>
+                </div>
+                <div class="code" style="margin-top:.6rem">
+                  <header>BookingController / BookingResponse / V2 SQL</header>
+<pre><span class="diff-line del" data-issue data-theme="merge" data-severity="blocker">- return bookingService.findForUser(bookingId, user.id());</span>
+<span class="diff-line add">+ return bookingService.findById(bookingId);</span>
+<span class="diff-line del" data-issue data-theme="release" data-severity="blocker">- List&lt;String&gt; seatNumbers,</span>
+<span class="diff-line add">+ List&lt;String&gt; seats,</span>
+<span class="diff-line add" data-issue data-theme="release" data-severity="blocker">+ ALTER TABLE booking ADD COLUMN payment_reference VARCHAR(64) NOT NULL;</span></pre>
+                </div>
+              </div>
+              <div>
+                <div class="findings"></div>
+                <p class="score-readout muted">Your score: —</p>
+                <p>
+                  <button class="btn" data-score="1">1</button>
+                  <button class="btn" data-score="2">2</button>
+                  <button class="btn" data-score="3">3</button>
+                  <button class="btn" data-score="4">4</button>
+                  <button class="btn" data-score="5">5</button>
+                </p>
+                <button class="btn gold" data-reveal>Reveal expert review</button>
+                <div class="expert hidden card" style="margin-top:1rem"></div>
+              </div>
+            </div>
+          </div>
+          <div class="speaker-notes hidden"><p>Expert top 3: NOT NULL migration, double charge, IDOR. Score 2. Deleted lines held the lock and the idempotency key.</p></div>
+        </section>
+
+        <section class="slide" data-segment="principles">
+          <p class="kicker">From findings to principles</p>
+          <h1>Five things we don’t compromise on</h1>
+          <div class="grid two">
+            <div>
+              <p class="kicker">As an author</p>
+              <div class="card"><h2>One purpose per PR</h2><p>If you can’t explain it in one sentence, split it.</p></div>
+              <div class="card"><h2>No claim without evidence</h2><p>Show the test, the log or the CI result. “Tested locally” is not evidence.</p></div>
+              <div class="card"><h2>Make it reversible</h2><p>Plan compatibility and rollback from the start — including data.</p></div>
+            </div>
+            <div>
+              <p class="kicker">As a reviewer</p>
+              <div class="card dark"><h2>You own what you approve</h2><p>Only approve what you’d be willing to defend. Read the deleted lines too.</p></div>
+              <div class="card dark"><h2>Be clear and kind</h2><p>Label every comment: blocker, suggestion, nit or question. Review the code, not the person.</p></div>
+            </div>
+          </div>
+          <div class="speaker-notes hidden"><p>Build these from the lab, then reveal.</p></div>
+        </section>
+
+        <section class="slide" data-segment="ai">
+          <p class="kicker">Using AI to raise great PRs</p>
+          <h1>We use AI to raise great PRs, but we own everything that goes in.</h1>
+          <div class="grid three">
+            <div class="card"><span class="pill intent">Intent</span><p>Draft What changed? and Why? from the diff. Flag anything the ticket didn’t ask for.</p></div>
+            <div class="card"><span class="pill merge">Merge</span><p>Self-review against the checklist. Find weak tests. Propose a 1–5 score with reasons.</p></div>
+            <div class="card"><span class="pill release">Release</span><p>Check migrations, API changes, config, logging. Draft rollout and rollback.</p></div>
+          </div>
+          <p class="takeaway">AI raises the floor. Knowing what great looks like comes first.</p>
+          <div class="speaker-notes hidden"><p>Nothing new to learn — AI checks the same bar faster.</p></div>
+        </section>
+
+        <section class="slide" data-segment="ai">
+          <p class="kicker">Where AI goes wrong</p>
+          <h1>Plausible is not the same as correct</h1>
+          <div class="grid three">
+            <div class="card"><h2>It makes the 5,000-line PR easy</h2><p>Generating code is cheap. Reviewing it is not.</p></div>
+            <div class="card"><h2>Tests that check nothing</h2><p>Happy to write assertNotNull — or a test that locks in the bug, like PR B’s retry.</p></div>
+            <div class="card"><h2>@Transactional on private</h2><p>Compiles, reads well, does nothing.</p></div>
+            <div class="card"><h2>It believes the description</h2><p>Ask it to compare claims against the diff, not to summarise the description.</p></div>
+            <div class="card"><h2>Never paste secrets or PII</h2><p>Use fixtures and redacted logs.</p></div>
+            <div class="card"><h2>Say when AI helped</h2><p>Disclosure is about review focus, not blame.</p></div>
+          </div>
+          <p class="muted">Copy the prompts from the handouts page after the session: <a class="gold" href="handouts.html">handouts.html</a></p>
+          <div class="speaker-notes hidden"><p>Live: paste git diff main...lab/pr-b-reservation into Codex with the self-review prompt. Compare its score to 2.</p></div>
+        </section>
+
+        <section class="slide" data-segment="commitments">
+          <p class="kicker">Commitments</p>
+          <h1>One change as an author. One as a reviewer.</h1>
+          <p class="lead">Be specific enough that someone could check next month whether you did it.</p>
+          <div class="grid two">
+            <div class="card"><label>As an author, I will…<textarea rows="4" placeholder="e.g. fill in Rollback honestly on every PR that touches the database"></textarea></label></div>
+            <div class="card"><label>As a reviewer, I will…<textarea rows="4" placeholder="e.g. read the deleted lines first and label every comment"></textarea></label></div>
+          </div>
+          <div class="speaker-notes hidden"><p>Two silent minutes. Two or three people share. Push for specifics.</p></div>
+        </section>
+
+        <section class="slide" data-segment="commitments">
+          <p class="kicker">Next steps</p>
+          <h1>From session to team standard</h1>
+          <div class="grid two">
+            <div class="card"><h2>01 · Agree the template</h2><p>Keep, change or drop. That becomes the standard.</p></div>
+            <div class="card"><h2>02 · Add it to our repos</h2><p><span class="mono">.github/pull_request_template.md</span></p></div>
+            <div class="card"><h2>03 · Share the Codex prompts</h2><p>Self-review before asking for review.</p></div>
+            <div class="card"><h2>04 · Check back</h2><p>PR size, time to first review, rework.</p></div>
+          </div>
+          <p class="takeaway">Easy to review, safe to merge, ready to release.</p>
+          <p><a class="btn gold" href="handouts.html">Open the handouts</a></p>
+          <div class="speaker-notes hidden"><p>Close by reading the outcome one more time.</p></div>
+        </section>
+      </main>
+      <aside class="notes" id="notes">
+        <p class="kicker">Presenter notes · N to toggle</p>
+        <div id="notes-body"></div>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <div>
+        <button class="btn" id="prev">←</button>
+        <button class="btn" id="next">→</button>
+        <span class="muted" id="counter">1 / 20</span>
+      </div>
+      <p class="muted">← → to move · N notes · this deck is served by CineBook on port 4581</p>
+      <button class="btn" id="toggle-notes">Notes</button>
+    </footer>
+  </div>
+  <script src="js/session.js"></script>
+</body>
+</html>

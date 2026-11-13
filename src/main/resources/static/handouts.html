@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Handouts · Raising Great PRs</title>
+  <link rel="stylesheet" href="css/session.css" />
+</head>
+<body>
+  <div class="frame">
+    <header class="topbar">
+      <a class="brand" href="/">Raising Great PRs</a>
+      <span class="muted">Handouts — copy into your wiki or repo</span>
+    </header>
+    <main class="slide active" style="display:block">
+      <p class="kicker">Take home</p>
+      <h1>Template, checklist, scale, prompts</h1>
+
+      <h2>Review the lab as git</h2>
+      <div class="code"><header>commands</header>
+<pre>git checkout lab/pr-a-promo
+git diff main...HEAD
+
+git checkout lab/pr-b-reservation
+git diff main...HEAD</pre></div>
+
+      <h2>PR template</h2>
+      <p class="muted">Also at <span class="mono">.github/pull_request_template.md</span></p>
+      <div class="code"><pre id="template-src"></pre></div>
+
+      <h2>Merge confidence</h2>
+      <div class="card">
+        <p>5 merge now · 4 nits · 3 some risk · 2 blocking · 1 rethink / split</p>
+        <p>Security, data integrity or rollback red → max 2. Missing evidence → max 3. AI score is advisory.</p>
+      </div>
+
+      <h2>Codex self-review prompt</h2>
+      <div class="code"><pre>Review the diff between this branch and main as a strict senior reviewer.
+
+For each finding give: file, severity (blocker / major / nit), theme (intent / merge / release),
+and who it would hurt.
+Pay special attention to deleted lines: list any safeguard that was removed
+(locks, ownership checks, idempotency keys, validation).
+Then check the tests: for each test, say what behaviour it would catch if broken.
+Flag tests that would pass even if the code were wrong.
+
+Finish with a merge confidence score 1–5.
+Any security, data-integrity or rollback blocker caps the score at 2.</pre></div>
+    </main>
+  </div>
+</body>
+</html>

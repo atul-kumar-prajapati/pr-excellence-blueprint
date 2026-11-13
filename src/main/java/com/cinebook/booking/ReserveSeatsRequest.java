@@ -1,0 +1,10 @@
+package com.cinebook.booking;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import java.util.List;
+
+public record ReserveSeatsRequest(
+        @NotNull Long showtimeId,
+        @NotEmpty List<Long> seatIds) {
+}

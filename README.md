@@ -1,47 +1,80 @@
-# Raising Great PRs
+# CineBook — Raising Great PRs
 
-An interactive web app for running a 90-minute in-house session on raising and reviewing great pull requests, including AI-assisted ones.
+A small **Spring Boot** movie-ticket booking API, plus an HTML session deck. Use it to run a 90-minute in-house workshop on raising pull requests that are easy to review, safe to merge, and ready to release.
 
 **Outcome:** By the end of the session, every engineer can raise an AI-assisted PR that's easy to review, safe to merge, and ready to release with confidence.
 
-## What's inside
+## What you get
 
-- **Slides** (`#/slide/1`): 22 slides across the 8 agenda segments, with an agenda bar, a 90-minute session clock that tells you if you're behind, and presenter notes (press `N`).
-- **Lab** (`#/lab/a`, `#/lab/b`): two realistic PR pages from a fictional movie-ticket booking service (CineBook, Spring Boot).
-  - PR A is a messy promo-code PR, the warm-up.
-  - PR B is a tidy refactor that hides blockers.
-  - Groups click diff lines to log findings, star a top 3, score merge confidence, then reveal the expert review.
-  - Timed hints help breakout rooms when the facilitator isn't there.
-- **Handouts** (`#/handouts`): the PR template, reviewer checklist, merge confidence scale, principles and Codex prompts, each with a copy button, plus "copy whole pack".
+| Path | What it is |
+|---|---|
+| `main` | Working CineBook API (bookings, seats, payments with an idempotency key and an ownership check) |
+| `lab/pr-a-promo` | Lab PR A — promo codes. Looks finished. The issues need a focused read. |
+| `lab/pr-b-reservation` | Lab PR B — a tidy reservation refactor. The template says “no behaviour change”. Read the deleted lines. |
+| `src/main/resources/static/` | The session: `index.html` (slides, CSS motion, presenter notes) and `handouts.html` |
+| `.github/pull_request_template.md` | The in-house PR template from the session |
 
-Findings, scores, commitments and the AI demo fallback are saved in each person's browser (`localStorage`). There is no backend.
+This is a normal Maven repo. Push it to any GitHub remote and open PRs from the two `lab/*` branches against `main`.
 
-## Run locally
+## Run the app and the deck
 
-Requires Node 20 or later.
-
-```bash
-npm install
-npm run dev        # http://127.0.0.1:4517
-```
-
-Other scripts:
+Java 21.
 
 ```bash
-npm test           # checks lab answer keys line up with the diffs
-npm run lint
-npm run build
+./mvnw test
+./mvnw spring-boot:run
 ```
 
-## Keyboard
+Then:
 
-`←` / `→` move between slides · `N` presenter notes · `F` fullscreen · `Home` / `End` first and last slide.
+- Session deck: http://127.0.0.1:4581/
+- Handouts: http://127.0.0.1:4581/handouts.html
+- API: `GET http://127.0.0.1:4581/api/movies`
 
-## Editing content
+You can also open `src/main/resources/static/index.html` directly in a browser (the CSS and JS are relative).
 
-All wording lives in `src/content/` (agenda, stakeholders, handouts, lab PRs) and `src/slides/` (one file per segment, with presenter notes next to each slide). Run `npm test` after editing a lab PR: each planted issue must anchor to exactly one line of its diff.
+Keys: **← →** move slides · **N** presenter notes.
 
-## Docs
+Demo bookings use the header `X-User-Id`:
 
-- [`docs/specs/raising-great-prs-session.md`](docs/specs/raising-great-prs-session.md): what the materials must contain, decisions and acceptance criteria.
-- [`docs/plans/raising-great-prs-session-plan.md`](docs/plans/raising-great-prs-session-plan.md): build order, verification and risks.
+```bash
+# list seats for the Dune evening show (id 1 after seed)
+curl -s http://127.0.0.1:4581/api/showtimes/1/seats
+
+# reserve A1 as user 1
+curl -s -X POST http://127.0.0.1:4581/api/bookings \
+  -H 'Content-Type: application/json' \
+  -H 'X-User-Id: 1' \
+  -d '{"showtimeId":1,"seatIds":[1]}'
+```
+
+## How to run the lab
+
+Split the room. Each group reviews **one branch**, not both.
+
+```bash
+git checkout lab/pr-a-promo          # Group A
+git diff main...HEAD
+./mvnw test                          # green is not the same as safe
+
+git checkout lab/pr-b-reservation    # Group B
+git diff main...HEAD
+```
+
+Score it 1–5 using the scale on the deck. Then compare with the expert reveal on the next slides (or in presenter notes).
+
+Facilitator: do not send people the expert notes before they review. The planted issues are meant to be found by reading, not by grepping for `TODO`.
+
+## Push to your own GitHub
+
+```bash
+git remote add github git@github.com:<you>/cinebook.git
+git push -u github main
+git push github lab/pr-a-promo lab/pr-b-reservation
+```
+
+Then open two pull requests from those branches. That is the lab.
+
+## Stack
+
+Spring Boot 4.1 · Java 21 · Spring Web MVC · Spring Data JPA · H2 (in-memory) · JUnit 5.
