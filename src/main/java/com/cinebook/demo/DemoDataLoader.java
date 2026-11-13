@@ -4,6 +4,8 @@ import com.cinebook.catalog.Movie;
 import com.cinebook.catalog.MovieRepository;
 import com.cinebook.catalog.Showtime;
 import com.cinebook.catalog.ShowtimeRepository;
+import com.cinebook.promo.PromoCode;
+import com.cinebook.promo.PromoCodeRepository;
 import com.cinebook.seat.Seat;
 import com.cinebook.seat.SeatRepository;
 import java.math.BigDecimal;
@@ -23,6 +25,7 @@ public class DemoDataLoader implements CommandLineRunner {
     private final MovieRepository movieRepository;
     private final ShowtimeRepository showtimeRepository;
     private final SeatRepository seatRepository;
+    private final PromoCodeRepository promoCodeRepository;
 
     @Override
     public void run(String... args) {
@@ -40,6 +43,14 @@ public class DemoDataLoader implements CommandLineRunner {
 
         seatRepository.saveAll(row(evening, "A", new BigDecimal("249.50")));
         seatRepository.saveAll(row(matinee, "B", new BigDecimal("199.00")));
+
+        PromoCode friday = new PromoCode();
+        friday.setCode("FRIDAY15");
+        friday.setPercentOff(15);
+        friday.setMaxUses(100);
+        friday.setUsedCount(0);
+        friday.setExpiresAt(LocalDateTime.now().plusDays(30));
+        promoCodeRepository.save(friday);
     }
 
     private static List<Seat> row(Showtime showtime, String rowLabel, BigDecimal price) {
