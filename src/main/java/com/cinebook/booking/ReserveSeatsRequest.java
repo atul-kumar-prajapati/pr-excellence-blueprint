@@ -6,5 +6,7 @@ import java.util.List;
 
 public record ReserveSeatsRequest(
         @NotNull Long showtimeId,
-        @NotEmpty List<Long> seatIds) {
+        @NotEmpty List<Long> seatIds,
+        String customerName,
+        String customerEmail) {
 }

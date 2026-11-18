@@ -7,7 +7,7 @@ import java.util.List;
 public record BookingResponse(
         Long id,
         Long showtimeId,
-        List<String> seatNumbers,
+        List<String> seats,
         BigDecimal total,
         String status,
         String paymentReference) {
