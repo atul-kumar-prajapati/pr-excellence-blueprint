@@ -1,0 +1,39 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble the public session site
+        run: |
+          mkdir -p _site/deck
+          cp src/main/resources/static/notes.html _site/index.html
+          cp src/main/resources/static/index.html _site/deck/index.html
+          cp src/main/resources/static/handouts.html _site/deck/handouts.html
+          cp -R src/main/resources/static/css _site/deck/css
+          cp -R src/main/resources/static/js _site/deck/js
+          cp -R src/main/resources/static/v2 _site/v2
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

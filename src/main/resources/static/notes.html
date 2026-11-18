@@ -23,6 +23,7 @@
     p, li { margin: 0.4rem 0; }
     ul { padding-left: 1.3rem; }
     .note { color: #333; }
+    a { color: #111; }
     @media print {
       body { font-size: 16px; }
       h2 { break-after: avoid; }
@@ -34,6 +35,7 @@
   <h1>How to raise great PRs</h1>
   <p>90 minutes. Tech-stack agnostic principles. Examples: Java backend focused.</p>
   <p><b>Goal:</b> Raise an (AI-assisted) PR that a human can actually review and that you can ship on a Friday with confidence.</p>
+  <p><b>Lab PRs:</b> <a href="https://github.com/atul-kumar-prajapati/pr-excellence-blueprint/pull/1">Group A — promo</a> · <a href="https://github.com/atul-kumar-prajapati/pr-excellence-blueprint/pull/2">Group B — reservation</a></p>
 
   <h2>1. Why this, now</h2>
   <ul>
@@ -127,10 +129,10 @@
   <h2>6. Lab</h2>
   <p>Open a real Java PR in this repo. Rank what you find. Give it a score.</p>
   <ul>
-    <li><b>Group A</b> · <code>lab/pr-a-promo</code>. Promo codes. The write-up looks finished. Read the money, the tests, and two requests at once on a Friday night.</li>
-    <li><b>Group B</b> · <code>lab/pr-b-reservation</code>. A tidy extract. The template says no behavior change. Read the deleted lines.</li>
+    <li><b>Group A</b> · <a href="https://github.com/atul-kumar-prajapati/pr-excellence-blueprint/pull/1">PR #1 — promo codes</a>. The write-up looks finished. Read the money, the tests, and two requests at once on a Friday night.</li>
+    <li><b>Group B</b> · <a href="https://github.com/atul-kumar-prajapati/pr-excellence-blueprint/pull/2">PR #2 — reservation extract</a>. A tidy extract. The template says no behavior change. Read the deleted lines.</li>
   </ul>
-  <p><code>git diff main...HEAD</code> then <code>./mvnw test</code>. Green is not the same as safe.</p>
+  <p>Green CI is not the same as safe. Read the deleted lines.</p>
 
   <h2>7. Five rules we will not drop</h2>
   <ul>
