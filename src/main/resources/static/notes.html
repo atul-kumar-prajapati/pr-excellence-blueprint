@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to raise great PRs</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      color: #111;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 22px;
+      line-height: 1.45;
+    }
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    h1 { font-size: 2.2rem; margin: 0 0 0.6rem; }
+    h2 { font-size: 1.35rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid #111; padding-bottom: 0.2rem; }
+    p, li { margin: 0.4rem 0; }
+    ul { padding-left: 1.3rem; }
+    .note { color: #333; }
+    @media print {
+      body { font-size: 16px; }
+      h2 { break-after: avoid; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>How to raise great PRs</h1>
+  <p>90 minutes. Tech-stack agnostic principles. Examples: Java backend focused.</p>
+  <p><b>Goal:</b> Raise an (AI-assisted) PR that a human can actually review and that you can ship on a Friday with confidence.</p>
+
+  <h2>1. Why this, now</h2>
+  <ul>
+    <li>You used to raise maybe two PRs a week. With an agent, twenty is normal.</li>
+    <li>Volume went up. The bar did not move.</li>
+    <li>In an enterprise, especially on Java, “it works” is not a PR.</li>
+    <li>It has to last. Stay fast. Stay compliant. Stay maintainable. Stay secure. Basically check the relevant NFRs.</li>
+    <li>Integrations need to hold.</li>
+    <li>Other people will live with it, so you write for them.</li>
+    <li>You do these today and build a reputation gradually.</li>
+  </ul>
+
+  <h2>2. We raised a 5,000-line PR. They said no.</h2>
+  <ul>
+    <li>One PR. About five thousand lines.</li>
+    <li>They said: we cannot merge this.</li>
+    <li>If it went in and failed, you would not even know what broke.</li>
+    <li>They reminded us: CodeWalnut is supposed to be the small-PR shop. Reputation on the line.</li>
+    <li>We split it that night. One around 2,000 lines. Several around 500.</li>
+    <li>Then they signed off.</li>
+  </ul>
+  <p><b>Takeaway:</b> a big PR does not save time. It hides the break, and it burns the people who have to merge it.</p>
+
+  <h2>3. The sentence to remember</h2>
+  <p><b>A great PR makes the reviewer’s job easy, and the release risk-free.</b></p>
+
+  <p><b>What makes the reviewer’s job easy?</b></p>
+  <ul>
+    <li>You followed the coding standards. Lint is already green. They are not here to argue about tabs.</li>
+    <li>You ran the tests, and the tests would fail if the change were wrong.</li>
+    <li>The diff is small enough to read. Under about 500 lines when you can, under 1,000 when you must. Past that, people skim.</li>
+  </ul>
+
+  <p><b>What makes the release risk-free?</b></p>
+  <ul>
+    <li>Logs and metrics so support can see what happened.</li>
+    <li>The product owner can tell it actually does what was asked, because you attached test evidence.</li>
+    <li>If we have to back out, we know how. Often that is just the previous build. Say so when it is more than that.</li>
+  </ul>
+  <p>To know the release is risk-free, we have to know who gets hurt and the blast radius.</p>
+
+  <h2>4. Who is this PR for</h2>
+  <p>The usual answer is “the reviewer.” That is not accurate in one sense.</p>
+  <p>Not everyone reads your PR. A customer never opens GitHub. They feel the total on the ticket.</p>
+  <p>But there are different stakeholders, at different levels.</p>
+  <p>Each person: why they care, and what they need from you.</p>
+  <ul>
+    <li><b>Customer.</b> Wrong total, lost seat, leaked email. They need the behavior to be right.</li>
+    <li><b>Product owner.</b> Shipped but not what we agreed. They need the acceptance check, with a test attached.</li>
+    <li><b>Reviewer.</b> Asked to approve something they cannot finish. They need a small diff, standards already run, a place to start.</li>
+    <li><b>Tester.</b> Only the happy path was tried. They need failure cases, and an honest “not tested, because…”</li>
+    <li><b>Frontend.</b> JSON field renamed, app breaks on deploy. They need the contract, examples, and a linked PR.</li>
+    <li><b>Support.</b> It broke and the logs are noise. They need a correlation id, not a customer email.</li>
+    <li><b>On-call / SRE.</b> Paged at 3 a.m. They need a rollback that is more than “revert the PR” if a migration already ran.</li>
+    <li><b>DBA / data.</b> Table lock, or reports break. They need the migration plan in the PR.</li>
+    <li><b>Other teams / clients.</b> Their integration died with no notice. They need compatibility, or a version they heard about.</li>
+    <li><b>Future you.</b> Two years later, nobody knows why. They need the why, and the ticket or ADR.</li>
+    <li><b>CEO / security.</b> Incident with our name on it. They need authz at the boundary, no secrets, no personal data in logs.</li>
+    <li><b>The next agent.</b> Stale markdown can be problematic. They need the docs updated with the change.</li>
+  </ul>
+  <p><b>Same backend change, three asks:</b></p>
+  <ul>
+    <li>Frontend: did you rename a field we already ship?</li>
+    <li>On-call: if this pages me, what do I actually do?</li>
+    <li>Product owner: prove the Friday promo is 15%, not “tested locally.”</li>
+  </ul>
+
+  <h2>5. Six habits, then we open a PR</h2>
+  <ul>
+    <li><b>Title.</b> A stranger knows what changed.</li>
+    <li><b>Tests.</b> They would fail if you reverted this.</li>
+    <li><b>Size.</b> A human can review it.</li>
+    <li><b>Non-functionals.</b> Durable, fast enough, compliant, observable.</li>
+    <li><b>Lint.</b> Already run. Not a review comment.</li>
+    <li><b>Evidence.</b> Show it, or say you did not run it, with a justified reason.</li>
+  </ul>
+  <p><b>Title, in practice</b></p>
+  <ul>
+    <li>Tired: “fix discount bug. Tested locally.”</li>
+    <li>Useful: <code>fix(checkout): round promo discounts to 2dp using HALF_EVEN</code> (use Conventional Commits)</li>
+  </ul>
+  <p><b>How ready is this PR to merge? Pick 1 to 5.</b></p>
+  <ul>
+    <li><b>5</b> Merge now.</li>
+    <li><b>4</b> Small comments only. Safe after those.</li>
+    <li><b>3</b> Some risk. You wrote it in the PR. Not a blocker.</li>
+    <li><b>2</b> Must fix before merge.</li>
+    <li><b>1</b> Too big or the approach is wrong. Split it.</li>
+  </ul>
+
+  <h2>6. Lab</h2>
+  <p>Open a real Java PR in this repo. Rank what you find. Give it a score.</p>
+  <ul>
+    <li><b>Group A</b> · <code>lab/pr-a-promo</code>. Promo codes. The write-up looks finished. Read the money, the tests, and two requests at once on a Friday night.</li>
+    <li><b>Group B</b> · <code>lab/pr-b-reservation</code>. A tidy extract. The template says no behavior change. Read the deleted lines.</li>
+  </ul>
+  <p><code>git diff main...HEAD</code> then <code>./mvnw test</code>. Green is not the same as safe.</p>
+
+  <h2>7. Five rules we will not drop</h2>
+  <ul>
+    <li><b>One purpose per PR.</b> If you need “and” in the title, split it.</li>
+    <li><b>No claim without evidence.</b> If you say you tested it, show the test. “Tested locally” should not be the norm.</li>
+    <li><b>You own what you approve.</b> Read the deleted lines. Do not stamp LGTM on a skim.</li>
+    <li><b>Keep it small enough to review.</b> If they need twenty minutes of scrolling, they will skim.</li>
+    <li><b>Know who gets hurt if this is wrong.</b> Reviewer is one. Product, support, the API consumer, the person on call are others. Cover them in the PR.</li>
+  </ul>
+
+  <h2>8. Agents</h2>
+  <ul>
+    <li>Use the agent. You still own every line.</li>
+    <li>Ask it to draft the title and the why from the diff. Check it did not invent work the ticket never asked for.</li>
+    <li>Ask it to review against the checklist and suggest a 1 to 5. You keep the number.</li>
+    <li>It will happily write a test that asserts nothing, or put <code>@Transactional</code> on a private method. That compiles. It is still wrong.</li>
+    <li>Do not paste secrets or customer data into a prompt. Say in the PR when an agent helped.</li>
+  </ul>
+
+  <h2>9. Before you go</h2>
+  <ul>
+    <li>One thing you will do as an author. One as a reviewer. Specific enough that someone could check next month.</li>
+    <li>Agree the template. Put it in <code>.github/pull_request_template.md</code>.</li>
+    <li>Run the self-review prompt before you ping a human.</li>
+    <li>Look again in a few weeks: PR size, time to first review, rework.</li>
+  </ul>
+  <p><b>Session outcome:</b> Easy to review. Risk-free to release.</p>
+</main>
+</body>
+</html>

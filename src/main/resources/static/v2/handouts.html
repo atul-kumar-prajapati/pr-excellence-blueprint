@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Handouts · How to raise great PRs</title>
+  <link rel="stylesheet" href="css/session.css" />
+</head>
+<body>
+  <main class="page">
+    <p class="meta"><a href="index.html">How to raise great PRs</a></p>
+    <h1>Take this with you</h1>
+    <p class="lede">Checklist, score, lab commands, and the prompt you run before you ping a human.</p>
+
+    <h2>Lab</h2>
+    <div class="code"><header>commands</header>
+<pre>git checkout lab/pr-a-promo
+git diff main...HEAD
+
+git checkout lab/pr-b-reservation
+git diff main...HEAD
+
+./mvnw test</pre></div>
+
+    <h2>Merge confidence</h2>
+    <div class="card">
+      <p>5 merge it · 4 nits · 3 some risk, you said so · 2 blocking · 1 split or rethink</p>
+      <p>Security, data, or a missing rollback: cap at 2. Claimed a test and did not show it: cap at 3. An agent can suggest a number. You own it.</p>
+    </div>
+
+    <h2>Five rules</h2>
+    <div class="card">
+      <p>One purpose per PR.</p>
+      <p>No claim without evidence.</p>
+      <p>You own what you approve.</p>
+      <p>Keep it small enough to review.</p>
+      <p>Know who gets hurt if this is wrong.</p>
+    </div>
+
+    <h2>Written template</h2>
+    <p class="muted">Also in the repo at <span class="mono">.github/pull_request_template.md</span></p>
+
+    <h2>Self-review prompt</h2>
+    <div class="code"><pre>Review the diff between this branch and main as a strict senior reviewer.
+
+For each finding give: file, severity (blocker / major / nit),
+and who gets hurt if this ships.
+Pay special attention to deleted lines. List any safeguard that was removed
+(locks, ownership checks, idempotency keys, validation).
+Then check the tests: for each test, say what behaviour it would catch if broken.
+Flag tests that would pass even if the code were wrong.
+
+Finish with a merge confidence score 1 to 5.
+Any security, data, or rollback blocker caps the score at 2.</pre></div>
+
+    <p><a class="cta" href="session.html">Back to the session</a></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to raise great PRs</title>
+  <link rel="stylesheet" href="css/session.css" />
+</head>
+<body>
+  <main class="page">
+    <p class="meta">A 90-minute practice · Java backends in the room</p>
+    <h1>How to raise great PRs</h1>
+    <p class="lede">
+      You used to raise maybe two pull requests a week. With an agent next to you, twenty is normal.
+      Volume went up. The bar did not move.
+    </p>
+    <p class="lede">
+      In an enterprise, especially on Java, “it works” is not a PR. It has to last. It has to stay fast.
+      It has to stay compliant, maintainable, and secure. Other software will call yours, so you write it down.
+      Other people will live with it, so you write for them.
+    </p>
+    <p class="lede">
+      Do that and you get claps. This is practice for that muscle.
+    </p>
+
+    <h2>Six things to pick up, then we open a real PR</h2>
+    <ol class="lessons" id="lessons">
+      <li>
+        <button type="button">1. A title someone can understand <span>+</span></button>
+        <div class="body">If a stranger cannot tell what changed from the title, the reviewer is already behind. Type, scope, what happened. Not “fixes” and not “changes”.</div>
+      </li>
+      <li>
+        <button type="button">2. Tests that would fail if you reverted the change <span>+</span></button>
+        <div class="body">A product owner does not care that coverage went up. They care that checkout still totals correctly. If the test would pass on the old code, it is not evidence.</div>
+      </li>
+      <li>
+        <button type="button">3. Small enough that a human can review it <span>+</span></button>
+        <div class="body">Aim under about 500 to 1000 lines. If they have to scroll for twenty minutes they will skim, then approve under pressure. That is how 5000-line PRs ship.</div>
+      </li>
+      <li>
+        <button type="button">4. The non-functionals, not just the happy path <span>+</span></button>
+        <div class="body">Durable. Fast enough. Compliant. Observable. The person on call and the support engineer are part of this PR even if they never open GitHub.</div>
+      </li>
+      <li>
+        <button type="button">5. Lint and standards already run <span>+</span></button>
+        <div class="body">Do not spend review comments on formatting. Run the standards before you ask someone to read it. Review time is for design, correctness, and risk.</div>
+      </li>
+      <li>
+        <button type="button">6. Evidence attached <span>+</span></button>
+        <div class="body">If you say you tested it, show the test. If you did not run something, write that down and why. Video, logs, a command, a screenshot. Something a reviewer can look at without trusting your memory.</div>
+      </li>
+    </ol>
+
+    <p>
+      <a class="cta" href="session.html">Start the session</a>
+      <a class="cta ghost" href="handouts.html">Checklist and prompts</a>
+    </p>
+    <p class="muted" style="margin-top:2rem;font-size:1rem">
+      The original deck is still at the site root if you need it. This page is the version after the 16 Nov review.
+    </p>
+  </main>
+  <script>
+    document.querySelectorAll("#lessons li").forEach((item) => {
+      item.querySelector("button").addEventListener("click", () => item.classList.toggle("open"));
+    });
+  </script>
+</body>
+</html>

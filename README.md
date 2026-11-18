@@ -11,7 +11,8 @@ A small **Spring Boot** movie-ticket booking API, plus an HTML session deck. Use
 | `main` | Working CineBook API (bookings, seats, payments with an idempotency key and an ownership check) |
 | `lab/pr-a-promo` | Lab PR A — promo codes. Looks finished. The issues need a focused read. |
 | `lab/pr-b-reservation` | Lab PR B — a tidy reservation refactor. The template says “no behaviour change”. Read the deleted lines. |
-| `src/main/resources/static/` | The session: `index.html` (slides, CSS motion, presenter notes) and `handouts.html` |
+| `src/main/resources/static/` | Original session: `index.html` and `handouts.html` |
+| `src/main/resources/static/v2/` | Revised landing + session after 16 Nov feedback (Helvetica, reveal, real 5k story) |
 | `.github/pull_request_template.md` | The in-house PR template from the session |
 
 This is a normal Maven repo. Push it to any GitHub remote and open PRs from the two `lab/*` branches against `main`.
@@ -27,11 +28,14 @@ Java 21.
 
 Then:
 
-- Session deck: http://127.0.0.1:4581/
-- Handouts: http://127.0.0.1:4581/handouts.html
+- Original session deck (kept as-is): http://127.0.0.1:4581/
+- Original handouts: http://127.0.0.1:4581/handouts.html
+- Notepad notes for presenting to architects: http://127.0.0.1:4581/notes.html
+- Revised version after the 16 Nov review (Helvetica, landing page, human copy): http://127.0.0.1:4581/v2/
+- Revised session: http://127.0.0.1:4581/v2/session.html
 - API: `GET http://127.0.0.1:4581/api/movies`
 
-You can also open `src/main/resources/static/index.html` directly in a browser (the CSS and JS are relative).
+You can also open `src/main/resources/static/index.html` or `src/main/resources/static/v2/index.html` directly in a browser (the CSS and JS are relative).
 
 Keys: **← →** move slides · **N** presenter notes.
 

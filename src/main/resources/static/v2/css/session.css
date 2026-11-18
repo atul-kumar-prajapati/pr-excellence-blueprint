@@ -1,0 +1,322 @@
+:root {
+  --ink: #111;
+  --paper: #f4f2ee;
+  --panel: #fff;
+  --line: #d9d4cc;
+  --muted: #5c5854;
+  --red: #c1121f;
+  --ok: #1f7a4c;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+a { color: var(--ink); }
+
+.page {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 3.5rem 1.4rem 5rem;
+}
+
+.page h1 {
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  margin: 0 0 1.4rem;
+}
+
+.page h2 {
+  font-size: 1.35rem;
+  margin: 2.4rem 0 0.6rem;
+}
+
+.page p.lede {
+  font-size: 1.35rem;
+  max-width: 40rem;
+}
+
+.page .meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.lessons {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  border-top: 1px solid var(--ink);
+}
+
+.lessons li {
+  border-bottom: 1px solid var(--ink);
+}
+
+.lessons button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding: 1rem 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lessons .body {
+  display: none;
+  padding: 0 0 1.2rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.lessons li.open .body { display: block; }
+
+.cta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  margin-right: 0.8rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
+}
+
+.cta.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+.frame {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar, .footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.2rem;
+  background: var(--paper);
+  border-color: var(--ink);
+  border-style: solid;
+}
+
+.topbar { border-width: 0 0 2px; }
+.footer { border-width: 2px 0 0; justify-content: space-between; }
+
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.agenda {
+  display: flex;
+  flex: 1;
+  gap: 0.2rem;
+  overflow-x: auto;
+}
+
+.agenda a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.55rem;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.agenda a.current {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.clock { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.95rem; }
+
+.progress { height: 4px; background: var(--line); }
+.progress span { display: block; height: 100%; background: var(--ink); width: 0; }
+
+.layout { display: flex; flex: 1; min-height: 0; }
+.stage { flex: 1; overflow: auto; }
+
+.slide {
+  display: none;
+  padding: 2rem 5vw 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.slide.active { display: block; }
+
+.kicker {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.7rem;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin: 0 0 1rem;
+}
+
+h2 { font-size: 1.4rem; margin: 0 0 0.4rem; }
+
+.lead { font-size: 1.35rem; max-width: 42rem; }
+
+.grid { display: grid; gap: 1rem; }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.card {
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  padding: 1.1rem 1.2rem;
+}
+
+.muted { color: var(--muted); }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.92em; }
+
+.takeaway {
+  margin-top: 1.6rem;
+  padding-left: 0.9rem;
+  border-left: 6px solid var(--ink);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.btn {
+  appearance: none;
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+}
+
+.btn.solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.beat {
+  margin-top: 1rem;
+}
+
+.beat.is-hidden { display: none; }
+
+.who {
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  min-height: 7rem;
+}
+
+.who small { display: block; margin-top: 0.45rem; color: var(--muted); font-size: 1rem; }
+.who .need { display: none; }
+.who.open .need { display: block; }
+.who.open .hint { display: none; }
+
+.code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: #111;
+  color: #f4f2ee;
+  overflow: hidden;
+}
+
+.code header {
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.code.bad header { color: #ff8a8a; }
+.code.good header { color: #8ee0b0; }
+.code pre { margin: 0; padding: 0.85rem 0.95rem; overflow-x: auto; }
+
+.diff-line { display: block; cursor: pointer; padding: 0.05rem 0.2rem; }
+.diff-line.add { color: #b6ecc8; }
+.diff-line.del { color: #f0b4b4; }
+.diff-line.flagged { outline: 2px solid #fff; }
+
+.findings { display: flex; flex-direction: column; gap: 0.5rem; }
+.finding { border: 2px solid var(--ink); background: var(--panel); padding: 0.6rem 0.75rem; font-size: 1.05rem; }
+
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: 0.35rem;
+}
+
+.pill.blocker { color: var(--red); }
+.pill.major { color: #9a5b00; }
+.pill.merge, .pill.release, .pill.intent { color: var(--muted); }
+
+.notes {
+  display: none;
+  width: min(360px, 100%);
+  border-left: 2px solid var(--ink);
+  background: #fff;
+  padding: 1.1rem;
+  overflow-y: auto;
+  font-size: 1.05rem;
+}
+
+.notes.open { display: block; }
+.hidden { display: none !important; }
+
+.timeline { list-style: none; padding: 0; }
+.timeline li { margin: 0.7rem 0; font-size: 1.2rem; }
+.timeline strong { display: inline-block; min-width: 7.5rem; }
+
+textarea {
+  width: 100%;
+  min-height: 6rem;
+  font: inherit;
+  border: 2px solid var(--ink);
+  padding: 0.6rem;
+  background: #fff;
+}
+
+@media (max-width: 800px) {
+  .agenda { display: none; }
+  .slide { padding: 1.2rem 1rem 2rem; }
+  h1 { font-size: 1.85rem; }
+}
