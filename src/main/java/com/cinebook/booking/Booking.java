@@ -68,4 +68,8 @@ public class Booking {
         this.paymentReference = paymentReference;
         this.status = BookingStatus.CONFIRMED;
     }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 }
