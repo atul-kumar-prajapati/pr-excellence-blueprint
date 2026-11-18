@@ -1,11 +1,6 @@
 <!-- PR title: type(scope): short description
-     Conventional Commits: feat, fix, refactor, test, docs, build, ci, perf, chore.
+     Follow Conventional Commit Types: feat | fix | refactor | chore | docs | style | perf | test | build | ci
      If a section does not apply, write "Not applicable — <reason>". Do not leave it blank. -->
-
-## Ticket
-
-- Ticket / issue: <!-- link, or "None — <reason>" -->
-- Risk: Low / Medium / High — <!-- blast radius if this fails -->
 
 ## What changed?
 
@@ -13,61 +8,67 @@
 
 ## Why?
 
-<!-- Problem or requirement and expected outcome. Link the spec, design doc or ADR. -->
+<!-- The problem or requirement. Link the spec, design doc or ADR if there is one. -->
 
 -
 
 ## Verification evidence
 
-<!-- Do not claim a check passed without evidence. -->
+<!-- Static self-review: what you examined before raising this PR.
+     Provide evidence of every check you ran — linting, secrets scan, static
+     analysis, adversarial AI code review, architectural conformance, etc.
+     A thorough verification here helps the reviewer significantly. -->
 
-- Local checks (build, formatting, lint or static analysis):
-- CI / quality gate on the latest commit:
-- AI-assisted: No / Yes — <!-- what for: code, tests, self-review -->
-- Not run, and why:
+- Linting / formatting:
+- Secrets / sensitive-data scan:
+- Static / AI self-review:
+- If not verified, share why:
 
 ## Test evidence
 
-- Behaviour or acceptance criteria verified:
-- Tests run and results (unit / integration / contract / end-to-end):
-- Regression, negative or edge cases checked:
-- How to reproduce / review locally:
-- API examples (request, response, error response), if the API changed:
-- Not tested, and why:
+<!-- Dynamic evidence: show that the code behaves as expected.
+     Attach or inline results for every level that applies —
+     unit, integration, contract, and end-to-end tests.
+     For UI changes: attach before/after screenshots or a screen recording.
+     For API changes: attach request/response samples or a Postman run.
+     Map each result back to the acceptance criteria it covers. -->
 
-## Impact, risks and reviewer notes
-
-- Affected components / consumers:
-- Risks and trade-offs (data integrity, security, performance):
-- Configuration, environment variables or feature flags changed (including defaults):
-- Rollout:
-- Rollback (how to revert safely, including data):
-- Observability (logs, metrics, alerts, runbook):
-- Start reviewing at / needs particular attention:
+- Unit tests:
+- Integration / contract tests:
+- End-to-end / manual tests:
+- Screenshots or recordings:
+- If not tested, share why:
 
 ## Linked PRs and merge order
 
-<!-- Otherwise, write "None — standalone PR". -->
+<!-- For work spanning more than one repo or PR. "None" if this PR stands alone. -->
+
+-
+
+## Reviewer notes
+
+<!-- Risks, trade-offs, anything needing a closer look, and how to undo this if it misbehaves. -->
 
 -
 
 ## Checklist
 
-- [ ] The change is scoped to the ticket, with no unrelated changes.
-- [ ] Each acceptance criterion has a test that would fail without the change; bug fixes include a test reproducing the bug.
-- [ ] Tests assert expected behaviour, including failure and edge cases.
-- [ ] API contracts, documentation, ADRs, runbooks or agent docs are updated where needed.
-- [ ] No secrets, tokens or unnecessary personal data in code, tests, logs or fixtures.
-- [ ] New or changed endpoints enforce authorization at the boundary and validate input.
-- [ ] I understand and own every line, including AI-assisted changes.
+<!-- Only what CI does not prove. -->
 
-Author merge confidence: _/5 — <!-- 5 merge now · 4 nits · 3 non-blocking risk · 2 blocking · 1 rethink/split -->
+- [ ] Repo checks pass locally after the last change.
+- [ ] Each acceptance criterion has a test that fails without this change. A bug fix has a
+      regression test that reproduces the bug.
+- [ ] No secrets, tokens or personal data in code, tests, logs or fixtures.
+- [ ] Docs, ADR or OpenAPI updated where behaviour or a contract changed.
+- [ ] Any new config, env var or feature flag is named above, with its default, and applied in the
+      target environments.
+- [ ] Scoped to one change, with no unrelated files.
+- [ ] AI-assisted changes are read, understood and owned by the author.
 
-### Backend (Spring Boot)
+### Backend
 
-- [ ] Errors use the agreed error response format with correct HTTP status codes.
-- [ ] No sensitive values are logged.
-- [ ] Transaction boundaries are on public bean methods, and concurrent updates are protected.
-- [ ] Database migrations are backward compatible for rolling deployments (expand, then contract).
-- [ ] External calls have timeouts, bounded retries and idempotency where retried.
-- [ ] Service unit tests do not start the Spring context; integration tests cover persistence and transactions.
+- [ ] Errors go through `ProblemDetail`. No sensitive value is logged.
+- [ ] A new or changed table: the migration is additive for a rolling deploy.
+- [ ] Authentication and authorization verified at the correct boundaries.
+- [ ] Input validated at the API layer; business constraints enforced in the service layer.
+- [ ] Unit tests for services do not use `@SpringBootTest`.
