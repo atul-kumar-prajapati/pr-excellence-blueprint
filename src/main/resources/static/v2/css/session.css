@@ -12,6 +12,7 @@
 
 html, body {
   margin: 0;
+  height: 100%;
   min-height: 100%;
   background: var(--paper);
   color: var(--ink);
@@ -107,7 +108,9 @@ a { color: var(--ink); }
 }
 
 .frame {
-  min-height: 100svh;
+  height: 100svh;
+  max-height: 100svh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -120,6 +123,7 @@ a { color: var(--ink); }
   background: var(--paper);
   border-color: var(--ink);
   border-style: solid;
+  flex-shrink: 0;
 }
 
 .topbar { border-width: 0 0 2px; }
@@ -154,11 +158,20 @@ a { color: var(--ink); }
 
 .clock { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.95rem; }
 
-.progress { height: 4px; background: var(--line); }
+.progress { height: 4px; background: var(--line); flex-shrink: 0; }
 .progress span { display: block; height: 100%; background: var(--ink); width: 0; }
 
-.layout { display: flex; flex: 1; min-height: 0; }
-.stage { flex: 1; overflow: auto; }
+.layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
 
 .slide {
   display: none;

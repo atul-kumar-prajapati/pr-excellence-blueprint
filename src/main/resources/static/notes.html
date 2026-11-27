@@ -18,18 +18,23 @@
       margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
     }
-    h1 { font-size: 2.2rem; margin: 0 0 0.6rem; }
+    h1 { font-size: 2.2rem; margin: 0; }
     h2 { font-size: 1.35rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid #111; padding-bottom: 0.2rem; }
     p, li { margin: 0.4rem 0; }
     ul { padding-left: 1.3rem; }
     .note { color: #333; }
     a { color: #111; }
+    .title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 0 0 0.6rem;
+    }
     .present {
-      display: inline-block;
-      font-weight: 700;
-      text-decoration: none;
-      border-bottom: 2px solid #111;
-      margin: 0 0.6rem 0 0;
+      font-size: 0.95rem;
+      font-weight: 400;
+      white-space: nowrap;
     }
     @media print {
       body { font-size: 16px; }
@@ -39,9 +44,12 @@
 </head>
 <body>
 <main>
-  <h1>How to raise great PRs</h1>
-  <p><a class="present" href="present.html">Present</a> Arrow keys and space reveal each thought.</p>
-  <p>90 minutes. Tech-stack agnostic principles. Examples: Java backend focused.</p>
+  <div class="title-row">
+    <h1>How to raise great PRs</h1>
+    <a class="present" href="present.html">Present</a>
+  </div>
+  <p>90 minutes. Tech-stack agnostic principles.</p>
+  <p>Examples: Java backend focused.</p>
   <p><b>Goal:</b> Raise an (AI-assisted) PR that a human can actually review and that you can ship on a Friday with confidence.</p>
   <p><b>Lab PRs:</b> <a href="https://github.com/atul-kumar-prajapati/pr-excellence-blueprint/pull/1">Group A — promo</a> · <a href="https://github.com/atul-kumar-prajapati/pr-excellence-blueprint/pull/2">Group B — reservation</a></p>
 
