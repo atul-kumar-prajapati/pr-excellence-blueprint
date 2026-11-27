@@ -60,22 +60,23 @@
   <p><b>Takeaway:</b> a big PR does not save time. It hides the break, and it burns the people who have to merge it.</p>
 
   <h2>3. The sentence to remember</h2>
-  <p><b>A great PR makes the reviewer’s job easy, and the release risk-free.</b></p>
+  <p><b>A great PR makes the reviewer’s job easy, and is safe to release.</b></p>
 
   <p><b>What makes the reviewer’s job easy?</b></p>
   <ul>
     <li>You followed the coding standards. Lint is already green. They are not here to argue about tabs.</li>
     <li>You ran the tests, and the tests would fail if the change were wrong.</li>
-    <li>The diff is small enough to read. Under about 500 lines when you can, under 1,000 when you must. Past that, people skim.</li>
+    <li>The Why is in the PR. They can see the purpose without opening Jira.</li>
+    <li>The production change is small enough to read. Tests can be longer than the code they protect. That is fine. A hard line-count on the whole PR is not the rule. Past a sitting’s worth of behavior change, people skim.</li>
   </ul>
 
-  <p><b>What makes the release risk-free?</b></p>
+  <p><b>What makes it safe to release?</b></p>
   <ul>
     <li>Logs and metrics so support can see what happened.</li>
     <li>The product owner can tell it actually does what was asked, because you attached test evidence.</li>
     <li>If we have to back out, we know how. Often that is just the previous build. Say so when it is more than that.</li>
   </ul>
-  <p>To know the release is risk-free, we have to know who gets hurt and the blast radius.</p>
+  <p>To know it is safe to release, we have to know who gets hurt and the blast radius.</p>
 
   <h2>4. Who is this PR for</h2>
   <p>The usual answer is “the reviewer.” That is not accurate in one sense.</p>
@@ -85,14 +86,14 @@
   <ul>
     <li><b>Customer.</b> Wrong total, lost seat, leaked email. They need the behavior to be right.</li>
     <li><b>Product owner.</b> Shipped but not what we agreed. They need the acceptance check, with a test attached.</li>
-    <li><b>Reviewer.</b> Asked to approve something they cannot finish. They need a small diff, standards already run, a place to start.</li>
+    <li><b>Reviewer.</b> Asked to approve something they cannot finish. They need a Why they can read without opening Jira, a small behavior change, standards already run, a place to start.</li>
     <li><b>Tester.</b> Only the happy path was tried. They need failure cases, and an honest “not tested, because…”</li>
     <li><b>Frontend.</b> JSON field renamed, app breaks on deploy. They need the contract, examples, and a linked PR.</li>
     <li><b>Support.</b> It broke and the logs are noise. They need a correlation id, not a customer email.</li>
     <li><b>On-call / SRE.</b> Paged at 3 a.m. They need a rollback that is more than “revert the PR” if a migration already ran.</li>
     <li><b>DBA / data.</b> Table lock, or reports break. They need the migration plan in the PR.</li>
     <li><b>Other teams / clients.</b> Their integration died with no notice. They need compatibility, or a version they heard about.</li>
-    <li><b>Future you.</b> Two years later, nobody knows why. They need the why, and the ticket or ADR.</li>
+    <li><b>Future you.</b> Two years later, nobody knows why. They need the why in the PR, not only in Jira, and the ticket or ADR.</li>
     <li><b>CEO / security.</b> Incident with our name on it. They need authz at the boundary, no secrets, no personal data in logs.</li>
     <li><b>The next agent.</b> Stale markdown can be problematic. They need the docs updated with the change.</li>
   </ul>
@@ -103,11 +104,12 @@
     <li>Product owner: prove the Friday promo is 15%, not “tested locally.”</li>
   </ul>
 
-  <h2>5. Six habits, then we open a PR</h2>
+  <h2>5. Habits, then we open a PR</h2>
   <ul>
     <li><b>Title.</b> A stranger knows what changed.</li>
+    <li><b>Why.</b> The reviewer can see the purpose without opening Jira. A ticket link is not a substitute.</li>
     <li><b>Tests.</b> They would fail if you reverted this.</li>
-    <li><b>Size.</b> A human can review it.</li>
+    <li><b>Size.</b> A human can review the behavior change. Tests may be longer. That is not a reason to skip them, or to treat a line-count as a hard cap.</li>
     <li><b>Non-functionals.</b> Durable, fast enough, compliant, observable.</li>
     <li><b>Lint.</b> Already run. Not a review comment.</li>
     <li><b>Evidence.</b> Show it, or say you did not run it, with a justified reason.</li>
@@ -116,6 +118,11 @@
   <ul>
     <li>Tired: “fix discount bug. Tested locally.”</li>
     <li>Useful: <code>fix(checkout): round promo discounts to 2dp using HALF_EVEN</code> (use Conventional Commits)</li>
+  </ul>
+  <p><b>Why, in practice</b></p>
+  <ul>
+    <li>Tired: “See Jira.”</li>
+    <li>Useful: Product wants Friday 15% off checkout. Finance agreed 15% of the current booking total. This PR applies that at booking time.</li>
   </ul>
   <p><b>How ready is this PR to merge? Pick 1 to 5.</b></p>
   <ul>
@@ -139,14 +146,14 @@
     <li><b>One purpose per PR.</b> If you need “and” in the title, split it.</li>
     <li><b>No claim without evidence.</b> If you say you tested it, show the test. “Tested locally” should not be the norm.</li>
     <li><b>You own what you approve.</b> Read the deleted lines. Do not stamp LGTM on a skim.</li>
-    <li><b>Keep it small enough to review.</b> If they need twenty minutes of scrolling, they will skim.</li>
+    <li><b>Keep it small enough to review.</b> Judge the behavior change, not a raw line-count. Tests can be longer. If they need twenty minutes of scrolling through mixed unrelated files, they will skim.</li>
     <li><b>Know who gets hurt if this is wrong.</b> Reviewer is one. Product, support, the API consumer, the person on call are others. Cover them in the PR.</li>
   </ul>
 
   <h2>8. Agents</h2>
   <ul>
     <li>Use the agent. You still own every line.</li>
-    <li>Ask it to draft the title and the why from the diff. Check it did not invent work the ticket never asked for.</li>
+    <li>Ask it to draft the title and the Why from the diff. Check the Why stands alone without Jira, and that it did not invent work the ticket never asked for.</li>
     <li>Ask it to review against the checklist and suggest a 1 to 5. You keep the number.</li>
     <li>It will happily write a test that asserts nothing, or put <code>@Transactional</code> on a private method. That compiles. It is still wrong.</li>
     <li>Do not paste secrets or customer data into a prompt. Say in the PR when an agent helped.</li>
@@ -159,7 +166,7 @@
     <li>Run the self-review prompt before you ping a human.</li>
     <li>Look again in a few weeks: PR size, time to first review, rework.</li>
   </ul>
-  <p><b>Session outcome:</b> Easy to review. Risk-free to release.</p>
+  <p><b>Session outcome:</b> Easy to review. Safe to release.</p>
 </main>
 </body>
 </html>

@@ -65,7 +65,7 @@
 
         <section class="slide" data-segment="bar">
           <p class="kicker">The sentence to remember</p>
-          <h1>A great PR makes the reviewer’s job easy, and the release risk-free.</h1>
+          <h1>A great PR makes the reviewer’s job easy, and is safe to release.</h1>
           <p class="muted">Hit right arrow. We unpack that one piece at a time.</p>
           <div class="speaker-notes hidden"><p>Do not skip ahead. The next two slides are the unpack.</p></div>
         </section>
@@ -75,17 +75,18 @@
           <h1>They can finish it in one sitting, without guessing.</h1>
           <div class="card">You followed the coding standards. Lint is already green. They are not here to argue about tabs.</div>
           <div class="beat is-hidden card">You ran the tests, and the tests would fail if the change were wrong.</div>
-          <div class="beat is-hidden card">The diff is small enough to read. Think under 500 lines when you can, under 1,000 when you must. Past that, people skim.</div>
+          <div class="beat is-hidden card">The Why is in the PR. They can see the purpose without opening Jira.</div>
+          <div class="beat is-hidden card">The production change is small enough to read. Tests can be longer than the code they protect. That is fine. A hard line-count on the whole PR is not the rule.</div>
           <div class="speaker-notes hidden"><p>Reveal one card at a time. Size is the one people argue with. Hold it.</p></div>
         </section>
 
         <section class="slide" data-segment="bar">
-          <p class="kicker">What makes the release risk-free?</p>
+          <p class="kicker">What makes it safe to release?</p>
           <h1>You already thought about the people who live with this on Monday.</h1>
           <div class="card">Logs and metrics so support can see what happened.</div>
           <div class="beat is-hidden card">The product owner can tell it actually does what was asked, because you attached test evidence.</div>
           <div class="beat is-hidden card">If we have to back out, we know how. Often that is just the previous build. Say so when it is more than that.</div>
-          <p class="takeaway beat is-hidden">To know the release is risk-free, we have to know who gets hurt. Next we name them.</p>
+          <p class="takeaway beat is-hidden">To know it is safe to release, we have to know who gets hurt. Next we name them.</p>
           <div class="speaker-notes hidden"><p>This is the bridge into stakeholders. Do not say “14 readers.”</p></div>
         </section>
 
@@ -103,14 +104,14 @@
           <div class="grid three">
             <button type="button" class="who"><strong>Customer</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Wrong total, lost seat, leaked email. They never see the PR. They need the behaviour to be right.</small></span></button>
             <button type="button" class="who"><strong>Product owner</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Shipped but not what we agreed. They need the acceptance check, with a test attached.</small></span></button>
-            <button type="button" class="who"><strong>Reviewer</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Asked to approve something they cannot finish. They need a small diff, standards already run, a place to start.</small></span></button>
+            <button type="button" class="who"><strong>Reviewer</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Asked to approve something they cannot finish. They need a Why they can read without opening Jira, a small behaviour change, standards already run, a place to start.</small></span></button>
             <button type="button" class="who"><strong>Tester</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Only the happy path was tried. They need failure cases, and an honest “not tested, because…”</small></span></button>
             <button type="button" class="who"><strong>Frontend</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>JSON field renamed, app breaks on deploy. They need the contract, examples, and a linked PR.</small></span></button>
             <button type="button" class="who"><strong>Support</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>It broke and the logs are noise. They need a correlation id, not a customer email.</small></span></button>
             <button type="button" class="who"><strong>On-call / SRE</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Paged at 3 a.m. They need a rollback that is more than “revert the PR” if a migration already ran.</small></span></button>
             <button type="button" class="who"><strong>DBA / data</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Table lock, or reports break. They need the migration plan in the PR, not in Slack after the incident.</small></span></button>
             <button type="button" class="who"><strong>Other teams / clients</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Their integration died with no notice. They need compatibility, or a version bump they heard about.</small></span></button>
-            <button type="button" class="who"><strong>Future you</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Two years later, nobody knows why. They need the why, and the ticket or ADR.</small></span></button>
+            <button type="button" class="who"><strong>Future you</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Two years later, nobody knows why. They need the why in the PR, not only in Jira, and the ticket or ADR.</small></span></button>
             <button type="button" class="who"><strong>CEO / security</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Incident with our name on it. They need authz at the boundary, no secrets, no PII in logs.</small></span></button>
             <button type="button" class="who"><strong>The next agent</strong><span class="hint muted"><small>Click</small></span><span class="need"><small>Stale markdown, so it copies a bad pattern fifty times. They need AGENTS.md and the docs updated with the change.</small></span></button>
           </div>
@@ -146,14 +147,15 @@ The new column stays. No data rewind.</pre></div>
 
         <section class="slide" data-segment="anatomy">
           <p class="kicker">The checklist, in English</p>
-          <h1>Six habits. Then we open a PR.</h1>
+          <h1>Habits. Then we open a PR.</h1>
           <div class="grid two">
             <div class="card"><strong>1. Title</strong><p>A stranger knows what changed.</p></div>
-            <div class="card"><strong>2. Tests</strong><p>They would fail if you reverted this.</p></div>
-            <div class="card"><strong>3. Size</strong><p>A human can review it.</p></div>
-            <div class="card"><strong>4. Non-functionals</strong><p>Durable, fast enough, compliant, observable.</p></div>
-            <div class="card"><strong>5. Lint</strong><p>Already run. Not a review comment.</p></div>
-            <div class="card"><strong>6. Evidence</strong><p>Show it, or say you did not run it and why.</p></div>
+            <div class="card"><strong>2. Why</strong><p>The reviewer can see the purpose without opening Jira. A ticket link is not a substitute.</p></div>
+            <div class="card"><strong>3. Tests</strong><p>They would fail if you reverted this.</p></div>
+            <div class="card"><strong>4. Size</strong><p>A human can review the behaviour change. Tests may be longer. That is not a hard line-count.</p></div>
+            <div class="card"><strong>5. Non-functionals</strong><p>Durable, fast enough, compliant, observable.</p></div>
+            <div class="card"><strong>6. Lint</strong><p>Already run. Not a review comment.</p></div>
+            <div class="card"><strong>7. Evidence</strong><p>Show it, or say you did not run it and why.</p></div>
           </div>
           <p class="muted">The written template is in handouts. We are not collecting slogans. We are filling that list.</p>
           <div class="speaker-notes hidden"><p>This is the landing-page lesson list, now as the anatomy. Point at handouts.html.</p></div>
@@ -312,7 +314,7 @@ git diff main...HEAD
             <div class="card"><h2>One purpose per PR</h2><p>If you need “and” in the title, split it.</p></div>
             <div class="card"><h2>No claim without evidence</h2><p>If you say you tested it, show the test. “Tested locally” is a shrug.</p></div>
             <div class="card"><h2>You own what you approve</h2><p>Read the deleted lines. Do not stamp LGTM on a skim.</p></div>
-            <div class="card"><h2>Keep it small enough to review</h2><p>If they need twenty minutes of scrolling, they will skim.</p></div>
+            <div class="card"><h2>Keep it small enough to review</h2><p>Judge the behaviour change, not a raw line-count. Tests can be longer. Unrelated files make people skim.</p></div>
             <div class="card"><h2>Know who gets hurt if this is wrong</h2><p>Reviewer is one. Product, support, the API consumer, the person on call are others. Cover them in the PR.</p></div>
           </div>
           <div class="speaker-notes hidden"><p>Build from the lab first if you have time, then show this. We dropped “be clear and kind” and “make it reversible.”</p></div>
@@ -322,7 +324,7 @@ git diff main...HEAD
           <p class="kicker">Agents</p>
           <h1>Use the agent. You still own every line.</h1>
           <div class="grid two">
-            <div class="card">Ask it to draft the title and the why from the diff. Then check it did not invent work the ticket never asked for.</div>
+            <div class="card">Ask it to draft the title and the Why from the diff. Check the Why stands alone without Jira, and that it did not invent work the ticket never asked for.</div>
             <div class="card">Ask it to review against the checklist and suggest a 1 to 5. You keep the number.</div>
             <div class="card">It will happily write a test that asserts nothing, or put @Transactional on a private method. That compiles. It is still wrong.</div>
             <div class="card">Do not paste secrets or customer data into a prompt. Say in the PR when an agent helped.</div>
@@ -336,7 +338,7 @@ git diff main...HEAD
           <h1>One thing you will do as an author. One as a reviewer.</h1>
           <p class="lead">Make it specific enough that someone could check next month.</p>
           <div class="grid two">
-            <div class="card"><label>As an author I will<textarea placeholder="e.g. put the risk line on every PR, and keep it under 500 lines unless I say why"></textarea></label></div>
+            <div class="card"><label>As an author I will<textarea placeholder="e.g. write the Why so nobody has to open Jira, and keep the behaviour change reviewable"></textarea></label></div>
             <div class="card"><label>As a reviewer I will<textarea placeholder="e.g. read the deleted lines first, and refuse to approve a skim"></textarea></label></div>
           </div>
           <div class="speaker-notes hidden"><p>Two silent minutes. Two people share. Push “better descriptions” into something you can see on a PR.</p></div>
@@ -351,7 +353,7 @@ git diff main...HEAD
             <div class="card"><strong>3</strong> Run the self-review prompt before you ask a human.</div>
             <div class="card"><strong>4</strong> Look again in a few weeks: PR size, time to first review, rework.</div>
           </div>
-          <p class="takeaway">Easy to review. Risk-free to release. Claps follow that, not the other way around.</p>
+          <p class="takeaway">Easy to review. Safe to release. Claps follow that, not the other way around.</p>
           <p><a class="cta" href="handouts.html">Open the handouts</a> <a class="cta ghost" href="index.html">Back to the start</a></p>
           <div class="speaker-notes hidden"><p>Close on claps, because that is the goal he set. Then stop talking.</p></div>
         </section>

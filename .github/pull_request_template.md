@@ -8,7 +8,10 @@
 
 ## Why?
 
-<!-- The problem or requirement. Link the spec, design doc or ADR if there is one. -->
+<!-- Write this so a reviewer understands the purpose without opening Jira.
+     A ticket link is extra, not a substitute.
+     The problem or requirement, and why this PR exists now.
+     Link the spec, design doc or ADR if there is one. -->
 
 -
 

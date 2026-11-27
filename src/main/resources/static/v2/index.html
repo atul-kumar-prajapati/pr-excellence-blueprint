@@ -23,30 +23,34 @@
       Do that and you get claps. This is practice for that muscle.
     </p>
 
-    <h2>Six things to pick up, then we open a real PR</h2>
+    <h2>Things to pick up, then we open a real PR</h2>
     <ol class="lessons" id="lessons">
       <li>
         <button type="button">1. A title someone can understand <span>+</span></button>
         <div class="body">If a stranger cannot tell what changed from the title, the reviewer is already behind. Type, scope, what happened. Not “fixes” and not “changes”.</div>
       </li>
       <li>
-        <button type="button">2. Tests that would fail if you reverted the change <span>+</span></button>
+        <button type="button">2. A Why they can read without opening Jira <span>+</span></button>
+        <div class="body">The purpose lives in the PR. A ticket link is extra, not a substitute. If they have to open Jira to know why this exists, the Why is missing.</div>
+      </li>
+      <li>
+        <button type="button">3. Tests that would fail if you reverted the change <span>+</span></button>
         <div class="body">A product owner does not care that coverage went up. They care that checkout still totals correctly. If the test would pass on the old code, it is not evidence.</div>
       </li>
       <li>
-        <button type="button">3. Small enough that a human can review it <span>+</span></button>
-        <div class="body">Aim under about 500 to 1000 lines. If they have to scroll for twenty minutes they will skim, then approve under pressure. That is how 5000-line PRs ship.</div>
+        <button type="button">4. Small enough that a human can review the behaviour change <span>+</span></button>
+        <div class="body">Judge the production change, not a hard line-count. Tests can be longer than the code they protect. That is fine. If they have to scroll for twenty minutes through mixed unrelated files they will skim, then approve under pressure. That is how 5000-line PRs ship.</div>
       </li>
       <li>
-        <button type="button">4. The non-functionals, not just the happy path <span>+</span></button>
+        <button type="button">5. The non-functionals, not just the happy path <span>+</span></button>
         <div class="body">Durable. Fast enough. Compliant. Observable. The person on call and the support engineer are part of this PR even if they never open GitHub.</div>
       </li>
       <li>
-        <button type="button">5. Lint and standards already run <span>+</span></button>
+        <button type="button">6. Lint and standards already run <span>+</span></button>
         <div class="body">Do not spend review comments on formatting. Run the standards before you ask someone to read it. Review time is for design, correctness, and risk.</div>
       </li>
       <li>
-        <button type="button">6. Evidence attached <span>+</span></button>
+        <button type="button">7. Evidence attached <span>+</span></button>
         <div class="body">If you say you tested it, show the test. If you did not run something, write that down and why. Video, logs, a command, a screenshot. Something a reviewer can look at without trusting your memory.</div>
       </li>
     </ol>
